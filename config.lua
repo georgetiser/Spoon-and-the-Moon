@@ -6,7 +6,7 @@ application =
           width = 768, 
           height = 1024, 
           fps = 60, 
-          scale = "letterbox"
+          scale = "letterbox" -- options: letterbox, zoomEven, zoomStretch, none
      }, 
 		 license =
 		 {

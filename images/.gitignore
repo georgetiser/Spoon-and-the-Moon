@@ -1,4 +1,10 @@
 *.png
 *.mp3
 *.mp4
+*.ini
 *.DS_Store
+*.gitignore
+/.gitignore
+/audio
+/video
+/sprites
