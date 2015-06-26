@@ -3,8 +3,8 @@ application =
 { 
      content  = 
      { 
-          width = 768, 
-          height = 1024, 
+          width = 768, --768,
+          height = 1024, --1024,
           fps = 60, 
           scale = "letterbox" -- options: letterbox, zoomEven, zoomStretch, none
      }, 
