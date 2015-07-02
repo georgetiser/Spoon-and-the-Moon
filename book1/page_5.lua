@@ -2,14 +2,20 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local showbox         local showbut         local kwkBback         local kwkBindex         local kwkBforward         local papercorner         local BG  --(2) regular layer        BG = display.newImageRect(imgDir .. "p26_bg.png", 768, 1024 );        BG.x = 384; BG.y = 512; BG.alpha = 1; BG.oldAlpha = 1        menuGroup:insert(BG)        menuGroup.BG = BG        local onpapercornerTouch = function(event)           if event.phase=="ended" then              local myClosure_switch = function()                 disposeTweens() 
-                _G.kwk_currentPage = 2
-                print("GoToMenu!")
-                director:changeScene( "page_" .. _G.kwk_menuPage, "overFromTop" )            end             timerStash.newTimer_846 = timer.performWithDelay(0, myClosure_switch, 1)           end        end --(10) regular layer        papercorner = ui.newButton{            defaultSrc= imgDir .."p26_papercorner.png",            defaultX = 74,            defaultY = 82,            overSrc= imgDir .."p26_papercorner.png",            overX = 74,            overY = 82,            onRelease=onpapercornerTouch,            id="papercornerButton"        }        papercorner.x = 733; papercorner.y = 984; papercorner.alpha = 1; papercorner.oldAlpha = 1        menuGroup:insert(papercorner)        menuGroup.papercorner = papercorner        local onkwkBforwardTouch = function(event)           if event.phase=="ended" then              local myClosure_switch = function()                 disposeTweens() 
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local showbox         local showbut         local kwkBback         local kwkBindex         local kwkBforward         local papercorner         local BG  --(2) regular layer        BG = display.newImageRect(imgDir .. "p26_bg.png", 768, 1024 );        BG.x = 384; BG.y = 512; BG.alpha = 1; BG.oldAlpha = 1        menuGroup:insert(BG)        menuGroup.BG = BG 
+--XPageXCornerX
+
+
+--XpaperXcornerX
+
+
+
+
+       local onkwkBforwardTouch = function(event)           if event.phase=="ended" then              local myClosure_switch = function()                 disposeTweens() 
                 print("GoForward!")
                 _G.kwk_currentPage = _G.kwk_currentPage + 1
                 director:changeScene( "page_" .. _G.kwk_currentPage, "moveFromRight" )             end             timerStash.newTimer_947 = timer.performWithDelay(0, myClosure_switch, 1)           end        end --(10) regular layer        kwkBforward = ui.newButton{            defaultSrc= imgDir .."kwkbforward.png",            defaultX = 110,            defaultY = 87,            overSrc= imgDir .."kwkbforward.png",            overX = 110,            overY = 87,            onRelease=onkwkBforwardTouch,            id="kwkBforwardButton"        }        kwkBforward.x = 476; kwkBforward.y = 975; kwkBforward.alpha = 1; kwkBforward.oldAlpha = 1        menuGroup:insert(kwkBforward)        menuGroup.kwkBforward = kwkBforward        local onkwkBindexTouch = function(event)           if event.phase=="ended" then              local myClosure_switch = function()                 disposeTweens() 
-                _G.kwk_currentPage = 2
+                _G.kwk_currentPage = _G.kwk_menuPage
                 print("GoToMenu!")
                 director:changeScene( "page_" .. _G.kwk_menuPage, "overFromTop" )             end             timerStash.newTimer_003 = timer.performWithDelay(0, myClosure_switch, 1)              local myChannel = 2              local isChannelPlaying = audio.isChannelPlaying(myChannel)              if isChannelPlaying then                 --nothing              else                 audio.play( kwkBindex_audio, {channel=myChannel} )              end           end        end --(10) regular layer        kwkBindex = ui.newButton{            defaultSrc= imgDir .."kwkbindex.png",            defaultX = 66,            defaultY = 69,            overSrc= imgDir .."kwkbindex.png",            overX = 66,            overY = 69,            onRelease=onkwkBindexTouch,            id="kwkBindexButton"        }        kwkBindex.x = 383; kwkBindex.y = 969; kwkBindex.alpha = 1; kwkBindex.oldAlpha = 1        menuGroup:insert(kwkBindex)        menuGroup.kwkBindex = kwkBindex        local onkwkBbackTouch = function(event) 
           if event.phase=="ended" then            local myClosure_switch = function()                 disposeAudios()                 disposeTweens() 
