@@ -1,4 +1,4 @@
-       local onSoutheastCornerTouch = function(event) 
+       local onkwkPageCornerTouch = function(event) 
           if event.phase=="ended" then  
             local myClosure_switch = function() 
                 disposeTweens() 
@@ -9,21 +9,19 @@
             timerStash.newTimer_518 = timer.performWithDelay(0, myClosure_switch, 1) 
           end 
        end 
---(10) regular layer 
-       SoutheastCorner = ui.newButton{ 
+       kwkPageCorner = ui.newButton{ 
            defaultSrc= imgDir .."PageCornerGrey.png", 
            defaultX = 72, 
            defaultY = 80, 
            overSrc= imgDir .."PageCornerGrey.png", 
            overX = 72, 
            overY = 80, 
-           onRelease=onSoutheastCornerTouch, 
-           id="SoutheastCornerButton" 
+           onRelease=onkwkPageCornerTouch, 
+           id="kwkPageCornerButton" 
        } 
-       SoutheastCorner.x = 732; SoutheastCorner.y = 984; SoutheastCorner.alpha = 1; SoutheastCorner.oldAlpha = 1 
-       menuGroup:insert(SoutheastCorner) 
-       menuGroup.SoutheastCorner = SoutheastCorner 
-
+       kwkPageCorner.x = 732; kwkPageCorner.y = 984; kwkPageCorner.alpha = 1; kwkPageCorner.oldAlpha = 1 
+       menuGroup:insert(kwkPageCorner) 
+       menuGroup.kwkPageCorner = kwkPageCorner 
        crnrtxt = display.newText("" .. _G.kwk_currentPage .. "", 750, 1005, "Arbutus Slab", 20)
        crnrtxt:setFillColor(0,0,0) --black
 
