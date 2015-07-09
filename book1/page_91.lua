@@ -2,7 +2,12 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local kwkBback         local kwkBindex  
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function() 
+		if _G.kwk_ShowDebugOutput then
+				print("PageDisplay called.")
+		end--if
+
+       local kwkBback         local kwkBindex  
        local kwkPageCorner 
        local kwkBforward         --local PageXCorner         local showhide         local atch         local CH06PG3  --(2) regular layer        CH06PG3 = display.newImageRect(imgDir .. "p90_ch06pg3.png", 768, 1024 );        CH06PG3.x = 384; CH06PG3.y = 512; CH06PG3.alpha = 1; CH06PG3.oldAlpha = 1        menuGroup:insert(CH06PG3)        menuGroup.CH06PG3 = CH06PG3        local onatchTouch = function(event)           if event.phase=="ended" then               local myChannel = 2              local isChannelPlaying = audio.isChannelPlaying(myChannel)              if isChannelPlaying then                 --nothing              else                 audio.play( atch_audio, {channel=myChannel} )              end                 if showhide.alpha == 0 then                    transitionStash.newTransition_321 = transition.to( showhide, {alpha=showhide.oldAlpha, time=1000, delay=0})                 else                    transitionStash.newTransition_321 = transition.to( showhide, {alpha=0, time=1000, delay=0})                 end           end        end --(10) regular layer        atch = ui.newButton{            defaultSrc= imgDir .."p90_atch.png",            defaultX = 308,            defaultY = 428,            overSrc= imgDir .."p90_atch.png",            overX = 308,            overY = 428,            onRelease=onatchTouch,            id="atchButton"        }        atch.x = 219; atch.y = 290; atch.alpha = 1; atch.oldAlpha = 1        menuGroup:insert(atch)        menuGroup.atch = atch --(2) regular layer        showhide = display.newImageRect(imgDir .. "p90_showhide.png", 412, 292 );        showhide.x = 557; showhide.y = 246; showhide.alpha = 1; showhide.oldAlpha = 1        menuGroup:insert(showhide)        menuGroup.showhide = showhide --local PageZZCorner--(10) regular layer --local PageXXCorner
 --XpaperXcornerX

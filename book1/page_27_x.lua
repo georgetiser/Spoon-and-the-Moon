@@ -42,7 +42,6 @@ function new()
 				print("PageDisplay called.")
 		end--if
 
-
 		--Declare a variable name for each item to display. 
 		-- ..these are standard display items that appear on every page:
 		local kwkBback	
@@ -87,11 +86,11 @@ function new()
 					_G.kwk_currentPage = _G.kwk_currentPage + 1
 					director:changeScene( "page_" .. _G.kwk_currentPage, "moveFromRight" ) 
 				end--function Closure
-				timerStash.newTimer_10872 = timer.performWithDelay(0, myClosure_switch, 1) 
+				timerStash.newTimer_20872 = timer.performWithDelay(0, myClosure_switch, 1) 
 			end--if 
 		end--function forwardTouch
 		-- Display properties:
-		kwkBforward = ui.newButton{
+		kwkBforward = ui.newButton{ 
 			defaultSrc= imgDir .."kwkBforward.png", --p7_kwkBforward.png", 
 			defaultX = 111, 
 			defaultY = 87, 
@@ -116,13 +115,13 @@ function new()
 				local myClosure_switch = function() 
 					if _G.kwk_ShowDebugOutput then
 						print("PageNumber Pressed. Go To Menu!")
-					end--if
+					end
 					disposeAudios() 
 					disposeTweens() 
 					_G.kwk_currentPage = _G.kwk_menuPage
 					director:changeScene( "page_" .. _G.kwk_menuPage, "overFromTop" )
 				end 
-				timerStash.newTimer_10518 = timer.performWithDelay(0, myClosure_switch, 1) 
+				timerStash.newTimer_20518 = timer.performWithDelay(0, myClosure_switch, 1) 
 				if audio.isChannelPlaying(kwkBindex_audio_channel) then 
 					--If audio's already playing, don't start new audio.
 				else -- If no audio's playing:
@@ -163,7 +162,7 @@ function new()
 					end--if
 					director:changeScene( "page_" .. _G.kwk_menuPage, "overFromTop" ) 
 				end 
-				timerStash.newTimer_10551 = timer.performWithDelay(0, myClosure_switch, 1) 
+				timerStash.newTimer_20551 = timer.performWithDelay(0, myClosure_switch, 1) 
 				if audio.isChannelPlaying(kwkBindex_audio_channel) then 
 				--If the audio's already playing, don't start new audio.
 				else -- If no audio's playing:
@@ -203,7 +202,7 @@ function new()
 					_G.kwk_currentPage = _G.kwk_currentPage - 1
 					director:changeScene( "page_" .. _G.kwk_currentPage, "moveFromRight" ) 
 				end--function Closure
-				timerStash.newTimer_10650 = timer.performWithDelay(0, myClosure_switch, 1) 
+				timerStash.newTimer_20650 = timer.performWithDelay(0, myClosure_switch, 1) 
 			end--if 
 		end--function backTouch
 		-- Display properties:
@@ -222,9 +221,10 @@ function new()
 		menuGroup:insert(kwkBback) 
 		menuGroup.kwkBback = kwkBback 
 		-- Back button End
-
-	end--function drawScreen
+		
+	print("ok")
 
 	drawScreen() 
+	end--function drawScreen
 	return menuGroup 
 end--function

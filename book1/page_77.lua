@@ -2,7 +2,12 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local kwkBback         local kwkBindex  
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function() 
+		if _G.kwk_ShowDebugOutput then
+				print("PageDisplay called.")
+		end--if
+
+       local kwkBback         local kwkBindex  
        local kwkPageCorner 
        local kwkBforward         --local PageXCorner         local larva         local CH05PG7  --(2) regular layer        CH05PG7 = display.newImageRect(imgDir .. "p76_ch05pg7.png", 768, 1024 );        CH05PG7.x = 384; CH05PG7.y = 512; CH05PG7.alpha = 1; CH05PG7.oldAlpha = 1        menuGroup:insert(CH05PG7)        menuGroup.CH05PG7 = CH05PG7        local onlarvaTouch = function(event)           if event.phase=="ended" then               local myChannel = 2              local isChannelPlaying = audio.isChannelPlaying(myChannel)              if isChannelPlaying then                 --nothing              else                 audio.play( larva_audio, {channel=myChannel} )              end           end        end --(10) regular layer        larva = ui.newButton{            defaultSrc= imgDir .."p76_larva.png",            defaultX = 617,            defaultY = 55,            overSrc= imgDir .."p76_larva.png",            overX = 617,            overY = 55,            onRelease=onlarvaTouch,            id="larvaButton"        }        larva.x = 369; larva.y = 530; larva.alpha = 1; larva.oldAlpha = 1        menuGroup:insert(larva)        menuGroup.larva = larva --local PageZZCorner--(10) regular layer --local PageXXCorner
 --XpaperXcornerX

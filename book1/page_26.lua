@@ -62,7 +62,7 @@ function new()
 		-- BACKGROUND
 
 		-- Create a rectangle for the background image. Specify file name, width and height.
-		BG = display.newImageRect(imgDir .. "p4_bg.png", 768, 1024 ); 
+		BG = display.newImageRect(imgDir .. "p3_bg.png", 768, 1024 ); 
 		-- Specify where to put the background (in the middle) and its transparency (1=opaque)
 		BG.x = 384; BG.y = 512; BG.alpha = 1; BG.oldAlpha = 1 
 		menuGroup:insert(BG) 

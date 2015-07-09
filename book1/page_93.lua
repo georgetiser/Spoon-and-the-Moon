@@ -2,7 +2,12 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local kwkBback         local kwkBindex  
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function() 
+		if _G.kwk_ShowDebugOutput then
+				print("PageDisplay called.")
+		end--if
+
+       local kwkBback         local kwkBindex  
        local kwkPageCorner 
        local kwkBforward         --local PageXCorner         local mtch         local CH06PG5  --(2) regular layer        CH06PG5 = display.newImageRect(imgDir .. "p92_ch06pg5.png", 768, 1024 );        CH06PG5.x = 384; CH06PG5.y = 512; CH06PG5.alpha = 1; CH06PG5.oldAlpha = 1        menuGroup:insert(CH06PG5)        menuGroup.CH06PG5 = CH06PG5        local onmtchTouch = function(event)           if event.phase=="ended" then               local myChannel = 2              local isChannelPlaying = audio.isChannelPlaying(myChannel)              if isChannelPlaying then                 --nothing              else                 audio.play( mtch_audio, {channel=myChannel} )              end           end        end --(10) regular layer        mtch = ui.newButton{            defaultSrc= imgDir .."p92_mtch.png",            defaultX = 320,            defaultY = 431,            overSrc= imgDir .."p92_mtch.png",            overX = 320,            overY = 431,            onRelease=onmtchTouch,            id="mtchButton"        }        mtch.x = 220; mtch.y = 658; mtch.alpha = 1; mtch.oldAlpha = 1        menuGroup:insert(mtch)        menuGroup.mtch = mtch --local PageZZCorner--(10) regular layer --local PageXXCorner
 --XpaperXcornerX

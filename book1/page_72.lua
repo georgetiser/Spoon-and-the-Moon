@@ -2,7 +2,12 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local kwkBback         local kwkBindex  
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function() 
+		if _G.kwk_ShowDebugOutput then
+				print("PageDisplay called.")
+		end--if
+
+       local kwkBback         local kwkBindex  
        local kwkPageCorner 
        local kwkBforward         --local PageXCorner         local showhide         local kock         local CH05PG2  --(2) regular layer        CH05PG2 = display.newImageRect(imgDir .. "p71_ch05pg2.png", 768, 1024 );        CH05PG2.x = 384; CH05PG2.y = 512; CH05PG2.alpha = 1; CH05PG2.oldAlpha = 1        menuGroup:insert(CH05PG2)        menuGroup.CH05PG2 = CH05PG2        local onkockTouch = function(event)           if event.phase=="ended" then                  if showhide.alpha == 0 then                    transitionStash.newTransition_877 = transition.to( showhide, {alpha=showhide.oldAlpha, time=1000, delay=0})                 else                    transitionStash.newTransition_877 = transition.to( showhide, {alpha=0, time=1000, delay=0})                 end           end        end --(10) regular layer        kock = ui.newButton{            defaultSrc= imgDir .."p71_kock.png",            defaultX = 252,            defaultY = 331,            overSrc= imgDir .."p71_kock.png",            overX = 252,            overY = 331,            onRelease=onkockTouch,            id="kockButton"        }        kock.x = 514; kock.y = 395; kock.alpha = 1; kock.oldAlpha = 1        menuGroup:insert(kock)        menuGroup.kock = kock --(2) regular layer        showhide = display.newImageRect(imgDir .. "p71_showhide.png", 246, 185 );        showhide.x = 511; showhide.y = 681; showhide.alpha = 1; showhide.oldAlpha = 1        menuGroup:insert(showhide)        menuGroup.showhide = showhide 
 --XPageXCornerX

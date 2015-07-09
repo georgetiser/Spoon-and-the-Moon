@@ -2,7 +2,12 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local kwkBback         local kwkBindex  
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function() 
+		if _G.kwk_ShowDebugOutput then
+				print("PageDisplay called.")
+		end--if
+
+       local kwkBback         local kwkBindex  
        local kwkPageCorner 
        local kwkBforward         --local PageXCorner         local thunder         local chpt2intropage  --(2) regular layer        chpt2intropage = display.newImageRect(imgDir .. "p39_chpt2intropage.png", 768, 1024 );        chpt2intropage.x = 384; chpt2intropage.y = 512; chpt2intropage.alpha = 1; chpt2intropage.oldAlpha = 1        menuGroup:insert(chpt2intropage)        menuGroup.chpt2intropage = chpt2intropage        local onthunderTouch = function(event)           if event.phase=="ended" then               local myChannel = 2              local isChannelPlaying = audio.isChannelPlaying(myChannel)              if isChannelPlaying then                 --nothing              else                 audio.play( thunder_audio, {channel=myChannel} )              end           end        end --(10) regular layer        thunder = ui.newButton{            defaultSrc= imgDir .."p39_thunder.png",            defaultX = 373,            defaultY = 393,            overSrc= imgDir .."p39_thunder.png",            overX = 373,            overY = 393,            onRelease=onthunderTouch,            id="thunderButton"        }        thunder.x = 249; thunder.y = 308; thunder.alpha = 1; thunder.oldAlpha = 1        menuGroup:insert(thunder)        menuGroup.thunder = thunder --local PageZZCorner--(10) regular layer --local PageXXCorner
 --XpaperXcornerX

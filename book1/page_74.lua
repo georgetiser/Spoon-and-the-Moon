@@ -2,7 +2,12 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local kwkBback         local kwkBindex  
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function() 
+		if _G.kwk_ShowDebugOutput then
+				print("PageDisplay called.")
+		end--if
+
+       local kwkBback         local kwkBindex  
        local kwkPageCorner 
        local kwkBforward         --local PageXCorner         local CH05PG4  --(2) regular layer        CH05PG4 = display.newImageRect(imgDir .. "p73_ch05pg4.png", 768, 1024 );        CH05PG4.x = 384; CH05PG4.y = 512; CH05PG4.alpha = 1; CH05PG4.oldAlpha = 1        menuGroup:insert(CH05PG4)        menuGroup.CH05PG4 = CH05PG4 
 --XPageXCornerX

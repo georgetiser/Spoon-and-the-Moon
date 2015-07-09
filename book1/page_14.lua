@@ -2,7 +2,12 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local kwkBback         local kwkBindex  
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function() 
+		if _G.kwk_ShowDebugOutput then
+				print("PageDisplay called.")
+		end--if
+
+       local kwkBback         local kwkBindex  
        local kwkPageCorner 
        local kwkBforward         --local PageXCorner         local shot         local CH02PG11  --(2) regular layer        CH02PG11 = display.newImageRect(imgDir .. "p35_ch02pg11.png", 768, 1024 );        CH02PG11.x = 384; CH02PG11.y = 512; CH02PG11.alpha = 1; CH02PG11.oldAlpha = 1        menuGroup:insert(CH02PG11)        menuGroup.CH02PG11 = CH02PG11        local onshotTouch = function(event)           if event.phase=="ended" then               local myChannel = 2              local isChannelPlaying = audio.isChannelPlaying(myChannel)              if isChannelPlaying then                 --nothing              else                 audio.play( shot_audio, {channel=myChannel} )              end           end        end --(10) regular layer        shot = ui.newButton{            defaultSrc= imgDir .."p35_shot.png",            defaultX = 569,            defaultY = 299,            overSrc= imgDir .."p35_shot.png",            overX = 569,            overY = 299,            onRelease=onshotTouch,            id="shotButton"        }        shot.x = 394; shot.y = 758; shot.alpha = 1; shot.oldAlpha = 1        menuGroup:insert(shot)        menuGroup.shot = shot --local PageZZCorner--(10) regular layer --local PageXXCorner
 --XpaperXcornerX

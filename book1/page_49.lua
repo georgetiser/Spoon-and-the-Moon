@@ -2,7 +2,12 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local kwkBback         local kwkBindex  
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function() 
+		if _G.kwk_ShowDebugOutput then
+				print("PageDisplay called.")
+		end--if
+
+       local kwkBback         local kwkBindex  
        local kwkPageCorner 
        local kwkBforward         local cornber         local CH03PG2  --(2) regular layer        CH03PG2 = display.newImageRect(imgDir .. "p48_ch03pg2.png", 768, 1024 );        CH03PG2.x = 384; CH03PG2.y = 512; CH03PG2.alpha = 1; CH03PG2.oldAlpha = 1        menuGroup:insert(CH03PG2)        menuGroup.CH03PG2 = CH03PG2        local oncornberTouch = function(event)           if event.phase=="ended" then              local myClosure_switch = function()                 disposeTweens() 
                 _G.kwk_currentPage = _G.kwk_menuPage

@@ -2,7 +2,12 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local kwkBback         local kwkBindex  
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function() 
+		if _G.kwk_ShowDebugOutput then
+				print("PageDisplay called.")
+		end--if
+
+       local kwkBback         local kwkBindex  
        local kwkPageCorner 
        local kwkBforward         --local PageXCorner         local showhide         local dentures         local CH7PG10  --(2) regular layer        CH7PG10 = display.newImageRect(imgDir .. "p108_ch7pg10.png", 768, 1024 );        CH7PG10.x = 384; CH7PG10.y = 512; CH7PG10.alpha = 1; CH7PG10.oldAlpha = 1        menuGroup:insert(CH7PG10)        menuGroup.CH7PG10 = CH7PG10        local ondenturesTouch = function(event)           if event.phase=="ended" then               local myChannel = 2              local isChannelPlaying = audio.isChannelPlaying(myChannel)              if isChannelPlaying then                 --nothing              else                 audio.play( dentures_audio, {channel=myChannel} )              end                 if showhide.alpha == 0 then                    transitionStash.newTransition_666 = transition.to( showhide, {alpha=showhide.oldAlpha, time=1000, delay=0})                 else                    transitionStash.newTransition_666 = transition.to( showhide, {alpha=0, time=1000, delay=0})                 end           end        end --(10) regular layer        dentures = ui.newButton{            defaultSrc= imgDir .."p108_dentures.png",            defaultX = 266,            defaultY = 246,            overSrc= imgDir .."p108_dentures.png",            overX = 266,            overY = 246,            onRelease=ondenturesTouch,            id="denturesButton"        }        dentures.x = 263; dentures.y = 715; dentures.alpha = 1; dentures.oldAlpha = 1        menuGroup:insert(dentures)        menuGroup.dentures = dentures --(2) regular layer        showhide = display.newImageRect(imgDir .. "p108_showhide.png", 357, 135 );        showhide.x = 540; showhide.y = 607; showhide.alpha = 1; showhide.oldAlpha = 1        menuGroup:insert(showhide)        menuGroup.showhide = showhide --local PageZZCorner--(10) regular layer --local PageXXCorner
 --XpaperXcornerX

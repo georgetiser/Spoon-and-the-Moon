@@ -2,7 +2,12 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local kwkBback         local kwkBindex  
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function() 
+		if _G.kwk_ShowDebugOutput then
+				print("PageDisplay called.")
+		end--if
+
+       local kwkBback         local kwkBindex  
        local kwkPageCorner 
        local kwkBforward         --local PageXCorner         local cat         local CH05PG8  --(2) regular layer        CH05PG8 = display.newImageRect(imgDir .. "p77_ch05pg8.png", 768, 1024 );        CH05PG8.x = 384; CH05PG8.y = 512; CH05PG8.alpha = 1; CH05PG8.oldAlpha = 1        menuGroup:insert(CH05PG8)        menuGroup.CH05PG8 = CH05PG8        local oncatTouch = function(event)           if event.phase=="ended" then               local myChannel = 2              local isChannelPlaying = audio.isChannelPlaying(myChannel)              if isChannelPlaying then                 --nothing              else                 audio.play( cat_audio, {channel=myChannel} )              end           end        end --(10) regular layer        cat = ui.newButton{            defaultSrc= imgDir .."p77_cat.png",            defaultX = 419,            defaultY = 311,            overSrc= imgDir .."p77_cat.png",            overX = 419,            overY = 311,            onRelease=oncatTouch,            id="catButton"        }        cat.x = 543; cat.y = 736; cat.alpha = 1; cat.oldAlpha = 1        menuGroup:insert(cat)        menuGroup.cat = cat --local PageZZCorner--(10) regular layer --local PageXXCorner
 --XpaperXcornerX

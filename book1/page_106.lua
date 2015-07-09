@@ -2,7 +2,12 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local kwkBback         local kwkBindex  
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function() 
+		if _G.kwk_ShowDebugOutput then
+				print("PageDisplay called.")
+		end--if
+
+       local kwkBback         local kwkBindex  
        local kwkPageCorner 
        local kwkBforward         --local PageXCorner         local showhhide         local elsa         local CH7PG7  --(2) regular layer        CH7PG7 = display.newImageRect(imgDir .. "p105_ch7pg7.png", 768, 1024 );        CH7PG7.x = 384; CH7PG7.y = 512; CH7PG7.alpha = 1; CH7PG7.oldAlpha = 1        menuGroup:insert(CH7PG7)        menuGroup.CH7PG7 = CH7PG7        local onelsaTouch = function(event)           if event.phase=="ended" then                  if showhhide.alpha == 0 then                    transitionStash.newTransition_208 = transition.to( showhhide, {alpha=showhhide.oldAlpha, time=1000, delay=0})                 else                    transitionStash.newTransition_208 = transition.to( showhhide, {alpha=0, time=1000, delay=0})                 end              local myChannel = 2              local isChannelPlaying = audio.isChannelPlaying(myChannel)              if isChannelPlaying then                 --nothing              else                 audio.play( elsa_audio, {channel=myChannel} )              end           end        end --(10) regular layer        elsa = ui.newButton{            defaultSrc= imgDir .."p105_elsa.png",            defaultX = 211,            defaultY = 438,            overSrc= imgDir .."p105_elsa.png",            overX = 211,            overY = 438,            onRelease=onelsaTouch,            id="elsaButton"        }        elsa.x = 621; elsa.y = 650; elsa.alpha = 1; elsa.oldAlpha = 1        menuGroup:insert(elsa)        menuGroup.elsa = elsa --(2) regular layer        showhhide = display.newImageRect(imgDir .. "p105_showhhide.png", 385, 196 );        showhhide.x = 358; showhhide.y = 419; showhhide.alpha = 1; showhhide.oldAlpha = 1        menuGroup:insert(showhhide)        menuGroup.showhhide = showhhide --local PageZZCorner--(10) regular layer --local PageXXCorner
 --XpaperXcornerX

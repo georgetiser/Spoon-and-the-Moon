@@ -2,7 +2,12 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local kwkBback         local kwkBindex  
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function() 
+		if _G.kwk_ShowDebugOutput then
+				print("PageDisplay called.")
+		end--if
+
+       local kwkBback         local kwkBindex  
        local kwkPageCorner 
        local kwkBforward         --local PageXCorner         local man3         local man2         local man1         local BG  --(2) regular layer        BG = display.newImageRect(imgDir .. "p16_bg.png", 768, 1024 );        BG.x = 384; BG.y = 512; BG.alpha = 1; BG.oldAlpha = 1        menuGroup:insert(BG)        menuGroup.BG = BG --(2) regular layer        man1 = display.newImageRect(imgDir .. "p16_man1.png", 113, 156 );        man1.x = 639; man1.y = 525; man1.alpha = 1; man1.oldAlpha = 1        menuGroup:insert(man1)        menuGroup.man1 = man1 --(2) regular layer        man2 = display.newImageRect(imgDir .. "p16_man2.png", 111, 141 );        man2.x = 259; man2.y = 839; man2.alpha = 1; man2.oldAlpha = 1        menuGroup:insert(man2)        menuGroup.man2 = man2 --(2) regular layer        man3 = display.newImageRect(imgDir .. "p16_man3.png", 135, 165 );        man3.x = 305; man3.y = 198; man3.alpha = 1; man3.oldAlpha = 1        menuGroup:insert(man3)        menuGroup.man3 = man3 
 --XPageXCornerX

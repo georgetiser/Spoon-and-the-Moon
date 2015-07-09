@@ -2,7 +2,12 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local kwkBback         local kwkBindex  
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function() 
+		if _G.kwk_ShowDebugOutput then
+				print("PageDisplay called.")
+		end--if
+
+       local kwkBback         local kwkBindex  
        local kwkPageCorner 
        local kwkBforward         --local PageXCorner         local cupcake         local CH06PG10  --(2) regular layer        CH06PG10 = display.newImageRect(imgDir .. "p97_ch06pg10.png", 768, 1024 );        CH06PG10.x = 384; CH06PG10.y = 512; CH06PG10.alpha = 1; CH06PG10.oldAlpha = 1        menuGroup:insert(CH06PG10)        menuGroup.CH06PG10 = CH06PG10        local oncupcakeTouch = function(event)           if event.phase=="ended" then               local myChannel = 2              local isChannelPlaying = audio.isChannelPlaying(myChannel)              if isChannelPlaying then                 --nothing              else                 audio.play( cupcake_audio, {channel=myChannel} )              end           end        end --(10) regular layer        cupcake = ui.newButton{            defaultSrc= imgDir .."p97_cupcake.png",            defaultX = 327,            defaultY = 399,            overSrc= imgDir .."p97_cupcake.png",            overX = 327,            overY = 399,            onRelease=oncupcakeTouch,            id="cupcakeButton"        }        cupcake.x = 374; cupcake.y = 659; cupcake.alpha = 1; cupcake.oldAlpha = 1        menuGroup:insert(cupcake)        menuGroup.cupcake = cupcake --local PageZZCorner--(10) regular layer --local PageXXCorner
 --XpaperXcornerX

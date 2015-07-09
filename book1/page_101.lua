@@ -2,7 +2,12 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local kwkBback         local kwkBindex  
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function() 
+		if _G.kwk_ShowDebugOutput then
+				print("PageDisplay called.")
+		end--if
+
+       local kwkBback         local kwkBindex  
        local kwkPageCorner 
        local kwkBforward         --local PageXCorner         local swoosh         local CH7PG2  --(2) regular layer        CH7PG2 = display.newImageRect(imgDir .. "p100_ch7pg2.png", 768, 1024 );        CH7PG2.x = 384; CH7PG2.y = 512; CH7PG2.alpha = 1; CH7PG2.oldAlpha = 1        menuGroup:insert(CH7PG2)        menuGroup.CH7PG2 = CH7PG2        local onswooshTouch = function(event)           if event.phase=="ended" then               local myChannel = 2              local isChannelPlaying = audio.isChannelPlaying(myChannel)              if isChannelPlaying then                 --nothing              else                 audio.play( swoosh_audio, {channel=myChannel} )              end           end        end --(10) regular layer        swoosh = ui.newButton{            defaultSrc= imgDir .."p100_swoosh.png",            defaultX = 354,            defaultY = 59,            overSrc= imgDir .."p100_swoosh.png",            overX = 354,            overY = 59,            onRelease=onswooshTouch,            id="swooshButton"        }        swoosh.x = 329; swoosh.y = 439; swoosh.alpha = 1; swoosh.oldAlpha = 1        menuGroup:insert(swoosh)        menuGroup.swoosh = swoosh --local PageZZCorner--(10) regular layer --local PageXXCorner
 --XpaperXcornerX

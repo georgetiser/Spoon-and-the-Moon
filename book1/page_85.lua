@@ -2,7 +2,12 @@
     print("----------------"); print(""); print("New Page") 
     print("The current page is: " .. _G.kwk_currentPage) 
 
-    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function()        local kwkBback         local kwkBindex  
+    local path = system.pathForFile( "book.txt", system.DocumentsDirectory )     local file = io.open( path, "w+" )     file:write( _G.kwk_currentPage )     io.close( file )     local drawScreen = function() 
+		if _G.kwk_ShowDebugOutput then
+				print("PageDisplay called.")
+		end--if
+
+       local kwkBback         local kwkBindex  
        local kwkPageCorner 
        local kwkBforward         --local PageXCorner         local carsh         local CH05PG15  --(2) regular layer        CH05PG15 = display.newImageRect(imgDir .. "p84_ch05pg15.png", 768, 1024 );        CH05PG15.x = 384; CH05PG15.y = 512; CH05PG15.alpha = 1; CH05PG15.oldAlpha = 1        menuGroup:insert(CH05PG15)        menuGroup.CH05PG15 = CH05PG15        local oncarshTouch = function(event)           if event.phase=="ended" then               local myChannel = 2              local isChannelPlaying = audio.isChannelPlaying(myChannel)              if isChannelPlaying then                 --nothing              else                 audio.play( carsh_audio, {channel=myChannel} )              end           end        end --(10) regular layer        carsh = ui.newButton{            defaultSrc= imgDir .."p84_carsh.png",            defaultX = 503,            defaultY = 278,            overSrc= imgDir .."p84_carsh.png",            overX = 503,            overY = 278,            onRelease=oncarshTouch,            id="carshButton"        }        carsh.x = 383; carsh.y = 760; carsh.alpha = 1; carsh.oldAlpha = 1        menuGroup:insert(carsh)        menuGroup.carsh = carsh --local PageZZCorner--(10) regular layer --local PageXXCorner
 --XpaperXcornerX
