@@ -223,25 +223,6 @@ function new()
 		menuGroup.kwkBback = kwkBback 
 		-- Back button End
 
-		local function flip (event) 
-			local spacer = 180	
-			if event.phase =="ended" then	
-				if event.xStart < event.x and (event.x - event.xStart) >= spacer then 
-					if (_G.kwk_currentPage > 1) then	
-						disposeAudios() 
-						disposeTweens() 
-						director:changeScene( "page_" .. _G.kwk_currentPage-1 .. ".lua", "moveFromLeft" ) 
-					end 
-				elseif event.xStart > event.x and (event.xStart-event.x) >= spacer then	
-					if (_G.kwk_currentPage < _G.kwk_lastPage) then	
-						disposeAudios() 
-						disposeTweens() 
-						director:changeScene("page_" .. _G.kwk_currentPage+1 .. ".lua", "moveFromRight") 
-					end--if page-is-legit
-				end--if event-timing
-			end--if event-ended
-		end--function
-
 		BG:addEventListener("touch", flip) 
 	end--function drawScreen
 
