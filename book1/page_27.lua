@@ -1,250 +1,1 @@
-module(..., package.seeall) 
-
-function new() 
-
-	-- Initialize a context for interactivity, buttons etc.
-	local menuGroup = display.newGroup() 
-
-	-- Load each audio file we're going to use.
-	local kwkBindex_audio = audio.loadSound(audioDir .. "indexflip.mp3", system.ResourceDirectory) 
-	local kwkBindex_audio_channel = 2
-	-- Each sound file above needs an entry in function disposeAudios!
-
-	-- This function clears the audio when the page turns.
-	-- Each sound loaded above should have an entry in this function!
-	local disposeAudios 
-	function disposeAudios(event) 
-		audio.stop(2); audio.dispose(kwkBindex_audio); kwkBindex_audio = nil
-	end 
-	-- This function clears other stuff when the page turns.
-	local disposeTweens 
-	function disposeTweens(event) 
-		cancelAllTweens(); 
-		cancelAllTimers(); 
-		cancelAllTransitions(); 
-	end 
-
-	-- Confirm page number for debugging.
-	if _G.kwk_ShowDebugOutput then
-		print("----------------"); print(""); print("New Page") 
-		print("The current page is: " .. _G.kwk_currentPage) 
-	end--if
- 
-	-- Save the current page number.
-	local path = system.pathForFile( "book.txt", system.DocumentsDirectory ) 
-	local file = io.open( path, "w+" ) 
-	file:write( _G.kwk_currentPage ) 
-	io.close( file ) 
-
-	-- This function displays each item on the page.
-	local drawScreen = function() 
-		if _G.kwk_ShowDebugOutput then
-				print("PageDisplay called.")
-		end--if
-
-
-		--Declare a variable name for each item to display. 
-		-- ..these are standard display items that appear on every page:
-		local kwkBback	
-		local kwkBindex	
-		local kwkBforward	
-		local kwkPageCorner 
-		local BG		
-		-- ..these are extra display items specifically only for this page:
-		--[[
-		local showbox2	
-		local showbut2	
-		local showbox1	
-		local showbut1	
-		local choke	
-		]]
-
-		-- BACKGROUND
-
-		-- Create a rectangle for the background image. Specify file name, width and height.
-		BG = display.newImageRect(imgDir .. "p4_bg.png", 768, 1024 ); 
-		-- Specify where to put the background (in the middle) and its transparency (1=opaque)
-		BG.x = 384; BG.y = 512; BG.alpha = 1; BG.oldAlpha = 1 
-		menuGroup:insert(BG) 
-		menuGroup.BG = BG 
-
-		-- BUTTONS
-		-- For each button, we first define a Function (what the button should do).
-		-- Then we define how to Display the button itself.
-
-		-- Forward button Begin
-		-- Function:
-		local onkwkBforwardTouch = function(event) 
-			-- The 'event' is, someone touched/is touching the button.
-			-- We want to trigger the button if the touch ended. (This is standard for buttons.)
-			if event.phase=="ended" then	
-				local myClosure_switch = function() 
-					if _G.kwk_ShowDebugOutput then
-						print("Forward pressed. Advance one page!")
-					end--if
-					disposeAudios() 
-					disposeTweens() 
-					_G.kwk_currentPage = _G.kwk_currentPage + 1
-					director:changeScene( "page_" .. _G.kwk_currentPage, "moveFromRight" ) 
-				end--function Closure
-				timerStash.newTimer_10872 = timer.performWithDelay(0, myClosure_switch, 1) 
-			end--if 
-		end--function forwardTouch
-		-- Display properties:
-		kwkBforward = ui.newButton{
-			defaultSrc= imgDir .."kwkBforward.png", --p7_kwkBforward.png", 
-			defaultX = 111, 
-			defaultY = 87, 
-			overSrc= imgDir .."kwkBforward.png", --p7_kwkBforward.png", 
-			overX = 111, 
-			overY = 87, 
-			onRelease=onkwkBforwardTouch, -- Trigger the button when the touch ends (release).
-			id="kwkBforwardButton" 
-		} 
-		kwkBforward.x = 475; kwkBforward.y = 975; kwkBforward.alpha = 1; kwkBforward.oldAlpha = 1 
-		-- Make it appear!
-		menuGroup:insert(kwkBforward) 
-		menuGroup.kwkBforward = kwkBforward 
-		-- Forward button End
-
-		-- Page Corner button Begin
-		-- Function:
-		local onkwkPageCornerTouch = function(event) 
-			-- The 'event' is, someone touched/is touching the button.
-			-- We want to trigger the button if the touch ended. (This is standard for buttons.)
-			if event.phase=="ended" then
-				local myClosure_switch = function() 
-					if _G.kwk_ShowDebugOutput then
-						print("PageNumber Pressed. Go To Menu!")
-					end--if
-					disposeAudios() 
-					disposeTweens() 
-					_G.kwk_currentPage = _G.kwk_menuPage
-					director:changeScene( "page_" .. _G.kwk_menuPage, "overFromTop" )
-				end 
-				timerStash.newTimer_10518 = timer.performWithDelay(0, myClosure_switch, 1) 
-				if audio.isChannelPlaying(kwkBindex_audio_channel) then 
-					--If audio's already playing, don't start new audio.
-				else -- If no audio's playing:
-					audio.play( kwkBindex_audio, {channel=kwkBindex_audio_channel} ) 
-				end 
-			end 
-		end 
-		-- Display properties, corner icon:
-		kwkPageCorner = ui.newButton{ 
-			defaultSrc= imgDir .."PageCornerGrey.png", 
-			defaultX = 72, 
-			defaultY = 80, 
-			overSrc= imgDir .."PageCornerGrey.png", 
-			overX = 72, 
-			overY = 80, 
-			onRelease=onkwkPageCornerTouch, 
-			id="kwkPageCornerButton" 
-		} 
-		kwkPageCorner.x = 732; kwkPageCorner.y = 984; kwkPageCorner.alpha = 1; kwkPageCorner.oldAlpha = 1 
-		-- Put the page number, as text, on top of the corner icon:
-		crnrtxt = display.newText("" .. _G.kwk_currentPage .. "", 750, 1005, "Arbutus Slab", 20)
-		crnrtxt:setFillColor(0,0,0) --black
-		-- Make it appear!
-		menuGroup:insert(kwkPageCorner) 
-		menuGroup.kwkPageCorner = kwkPageCorner 
-		-- Page Corner button End
-
-		-- Index gem-shaped button Begin
-		-- Function:
-		local onkwkBindexTouch = function(event) 
-			if event.phase=="ended" then	
-				local myClosure_switch = function() 
-					disposeAudios() 
-					disposeTweens() 
-					_G.kwk_currentPage = _G.kwk_menuPage
-					if _G.kwk_ShowDebugOutput then
-						print("Gem button pressed. Go To Menu!")
-					end--if
-					director:changeScene( "page_" .. _G.kwk_menuPage, "overFromTop" ) 
-				end 
-				timerStash.newTimer_10551 = timer.performWithDelay(0, myClosure_switch, 1) 
-				if audio.isChannelPlaying(kwkBindex_audio_channel) then 
-				--If the audio's already playing, don't start new audio.
-				else -- If no audio's playing:
-					audio.play( kwkBindex_audio, {channel=kwkBindex_audio_channel} ) 
-				end 
-			end
-		end 
-		-- Display properties
-		kwkBindex = ui.newButton{ 
-			defaultSrc= imgDir .."kwkBindex.png", --p7_kwkBindex.png", 
-			defaultX = 66, 
-			defaultY = 69, 
-			overSrc= imgDir .."kwkBindex.png", --p7_kwkBindex.png", 
-			overX = 66, 
-			overY = 69, 
-			onRelease=onkwkBindexTouch, 
-			id="kwkBindexButton" 
-		} 
-		kwkBindex.x = 383; kwkBindex.y = 969; kwkBindex.alpha = 1; kwkBindex.oldAlpha = 1 
-		-- Make it appear!
-		menuGroup:insert(kwkBindex) 
-		menuGroup.kwkBindex = kwkBindex 
-		-- Index gem-shaped button End
-
-		-- Back button Begin
-		-- Function:
-		local onkwkBbackTouch = function(event) 
-			-- The 'event' is, someone touched/is touching the button.
-			-- We want to trigger the button if the touch ended. (This is standard for buttons.)
-			if event.phase=="ended" then	
-				local myClosure_switch = function() 
-					if _G.kwk_ShowDebugOutput then
-						print("Back pressed. Backstep one page!")
-					end--if
-					disposeAudios() 
-					disposeTweens() 
-					_G.kwk_currentPage = _G.kwk_currentPage - 1
-					director:changeScene( "page_" .. _G.kwk_currentPage, "moveFromRight" ) 
-				end--function Closure
-				timerStash.newTimer_10650 = timer.performWithDelay(0, myClosure_switch, 1) 
-			end--if 
-		end--function backTouch
-		-- Display properties:
-		kwkBback = ui.newButton{ 
-			defaultSrc= imgDir .."kwkBback.png", --p7_kwkBback.png", 
-			defaultX = 111, 
-			defaultY = 88, 
-			overSrc= imgDir .."kwkBback.png", --p7_kwkBback.png", 
-			overX = 111, 
-			overY = 88, 
-			onRelease=onkwkBbackTouch, -- Trigger the button when the touch ends (release).
-			id="kwkBbackButton" 
-		} 
-		kwkBback.x = 293; kwkBback.y = 973; kwkBback.alpha = 1; kwkBback.oldAlpha = 1 
-		-- Make it appear!
-		menuGroup:insert(kwkBback) 
-		menuGroup.kwkBback = kwkBback 
-		-- Back button End
-
-		local function flip (event) 
-			local spacer = 180	
-			if event.phase =="ended" then	
-				if event.xStart < event.x and (event.x - event.xStart) >= spacer then 
-					if (_G.kwk_currentPage > 1) then	
-						disposeAudios() 
-						disposeTweens() 
-						director:changeScene( "page_" .. _G.kwk_currentPage-1 .. ".lua", "moveFromLeft" ) 
-					end 
-				elseif event.xStart > event.x and (event.xStart-event.x) >= spacer then	
-					if (_G.kwk_currentPage < _G.kwk_lastPage) then	
-						disposeAudios() 
-						disposeTweens() 
-						director:changeScene("page_" .. _G.kwk_currentPage+1 .. ".lua", "moveFromRight") 
-					end--if page-is-legit
-				end--if event-timing
-			end--if event-ended
-		end--function
-
-		BG:addEventListener("touch", flip) 
-	end--function drawScreen
-
-	drawScreen() 
-	return menuGroup 
-end--function
+-- Code created by Kwik - Copyright: kwiksher.com -- Version: 1.9.7a module(..., package.seeall)  function new() 		local menuGroup = display.newGroup() 		local disposeAudios 		local disposeTweens 		local Choking_audio = audio.loadSound(audioDir .. "choke.mp3", system.ResourceDirectory) 		local kwkBindex_audio = audio.loadSound(audioDir .. "indexflip.mp3", system.ResourceDirectory) 		--local currPage = 19 		print("----------------"); print(""); print("New Page") 		print("The current page is: " .. _G.kwk_currentPage) 		local path = system.pathForFile( "book.txt", system.DocumentsDirectory ) 		local file = io.open( path, "w+" ) 		file:write( _G.kwk_currentPage ) 		io.close( file ) 		local drawScreen = function() 		if _G.kwk_ShowDebugOutput then				print("PageDisplay called.")		end--if				local staranima2  				local showbox  				local showbut  				local kwkBback  				local kwkBindex  				local kwkPageCorner 				local kwkBforward  				local Choking  				local BG  				BG = display.newImageRect(imgDir .. "p4_bg.png", 768, 1024 ); 				BG.x = 384; BG.y = 512; BG.alpha = 1; BG.oldAlpha = 1 				menuGroup:insert(BG) 				menuGroup.BG = BG 				local onChokingTouch = function(event) 					if event.phase=="ended" then  							local myChannel = 2 							local isChannelPlaying = audio.isChannelPlaying(myChannel) 							if isChannelPlaying then 								--nothing 							else 								audio.play( Choking_audio, {channel=myChannel} ) 							end 					end 				end 				Choking = ui.newButton{ 						defaultSrc= imgDir .."p4_choke.png", 						defaultX = 399, 						defaultY = 26, 						overSrc= imgDir .."p4_choke.png", 						overX = 399, 						overY = 26, 						onRelease=onChokingTouch, 						id="ChokingButton" 				} 				Choking.x = 295; Choking.y = 227; Choking.alpha = 1; Choking.oldAlpha = 1 				menuGroup:insert(Choking) 				menuGroup.Choking = Choking 				local onkwkBforwardTouch = function(event) 					if event.phase=="ended" then  						local myClosure_switch = function() 								disposeAudios() 								disposeTweens() 								print("GoForward!")								_G.kwk_currentPage = _G.kwk_currentPage + 1								director:changeScene( "page_" .. _G.kwk_currentPage, "moveFromRight" ) 						end 						timerStash.newTimer_523 = timer.performWithDelay(0, myClosure_switch, 1) 					end 				end 				kwkBforward = ui.newButton{ 						defaultSrc= imgDir .."kwkbforward.png", 						defaultX = 111, 						defaultY = 87, 						overSrc= imgDir .."kwkbforward.png", 						overX = 111, 						overY = 87, 						onRelease=onkwkBforwardTouch, 						id="kwkBforwardButton" 				} 				kwkBforward.x = 475; kwkBforward.y = 975; kwkBforward.alpha = 1; kwkBforward.oldAlpha = 1 				menuGroup:insert(kwkBforward) 				menuGroup.kwkBforward = kwkBforward --PageNum Begin				local onkwkPageCornerTouch = function(event) 					if event.phase=="ended" then  						local myClosure_switch = function() 								disposeTweens() 								_G.kwk_currentPage = _G.kwk_menuPage								print("GoToMenu!")								director:changeScene( "page_" .. _G.kwk_menuPage, "overFromTop" )						end 						timerStash.newTimer_518 = timer.performWithDelay(0, myClosure_switch, 1) 					end 				end 				kwkPageCorner = ui.newButton{ 						defaultSrc= imgDir .."PageCornerGrey.png", 						defaultX = 72, 						defaultY = 80, 						overSrc= imgDir .."PageCornerGrey.png", 						overX = 72, 						overY = 80, 						onRelease=onkwkPageCornerTouch, 						id="kwkPageCornerButton" 				} 				kwkPageCorner.x = 732; kwkPageCorner.y = 984; kwkPageCorner.alpha = 1; kwkPageCorner.oldAlpha = 1 				menuGroup:insert(kwkPageCorner) 				menuGroup.kwkPageCorner = kwkPageCorner 				crnrtxt = display.newText("" .. _G.kwk_currentPage .. "", 750, 1005, "Arbutus Slab", 20)				crnrtxt:setFillColor(0,0,0) --black--PageNum End				local onkwkBindexTouch = function(event) 					if event.phase=="ended" then  						local myClosure_switch = function() 								disposeAudios() 								disposeTweens() 								_G.kwk_currentPage = _G.kwk_menuPage								print("GoToMenu!")								director:changeScene( "page_" .. _G.kwk_menuPage, "overFromTop" ) 						end 						timerStash.newTimer_589 = timer.performWithDelay(0, myClosure_switch, 1) 							local myChannel = 3 							local isChannelPlaying = audio.isChannelPlaying(myChannel) 							if isChannelPlaying then 								--nothing 							else 								audio.play( kwkBindex_audio, {channel=myChannel} ) 							end 					end 				end 				kwkBindex = ui.newButton{ 						defaultSrc= imgDir .."kwkbindex.png", 						defaultX = 66, 						defaultY = 69, 						overSrc= imgDir .."kwkbindex.png", 						overX = 66, 						overY = 69, 						onRelease=onkwkBindexTouch, 						id="kwkBindexButton" 				} 				kwkBindex.x = 383; kwkBindex.y = 969; kwkBindex.alpha = 1; kwkBindex.oldAlpha = 1 				menuGroup:insert(kwkBindex) 				menuGroup.kwkBindex = kwkBindex 				local onkwkBbackTouch = function(event) 					if event.phase=="ended" then						local myClosure_switch = function() 								disposeAudios() 								disposeTweens() 								print("GoBack!")								_G.kwk_currentPage = _G.kwk_currentPage - 1								director:changeScene( "page_" .. _G.kwk_currentPage, "moveFromLeft" ) 						end 						timerStash.newTimer_634 = timer.performWithDelay(0, myClosure_switch, 1) 					end 				end --(10) regular layer 				kwkBback = ui.newButton{ 						defaultSrc= imgDir .."kwkbback.png", 						defaultX = 111, 						defaultY = 88, 						overSrc= imgDir .."kwkbback.png", 						overX = 111, 						overY = 88, 						onRelease=onkwkBbackTouch, 						id="kwkBbackButton" 				} 				kwkBback.x = 293; kwkBback.y = 973; kwkBback.alpha = 1; kwkBback.oldAlpha = 1 				menuGroup:insert(kwkBback) 				menuGroup.kwkBback = kwkBback 				--[[				local onshowbutTouch = function(event) 					if event.phase=="ended" then  								if showbox.alpha == 0 then 										transitionStash.newTransition_791 = transition.to( showbox, {alpha=showbox.oldAlpha, time=1000, delay=0}) 								else 										transitionStash.newTransition_791 = transition.to( showbox, {alpha=0, time=1000, delay=0}) 								end 					end 				end 				showbut = ui.newButton{ 						defaultSrc= imgDir .."p19_showbut.png", 						defaultX = 642, 						defaultY = 345, 						overSrc= imgDir .."p19_showbut.png", 						overX = 642, 						overY = 345, 						onRelease=onshowbutTouch, 						id="showbutButton" 				} 				showbut.x = 387; showbut.y = 172; showbut.alpha = 1; showbut.oldAlpha = 1 				menuGroup:insert(showbut) 				menuGroup.showbut = showbut 				showbox = display.newImageRect(imgDir .. "p19_showbox.png", 491, 249 ); 				showbox.x = 372; showbox.y = 397; showbox.alpha = 1; showbox.oldAlpha = 1 				menuGroup:insert(showbox) 				menuGroup.showbox = showbox 				showbox.alpha = 0 				staranima2 = display.newImageRect(imgDir .. "p19_staranima2.png", 16, 18 ); 				staranima2.x = -16; staranima2.y = 162; staranima2.alpha = 1; staranima2.oldAlpha = 1 				menuGroup:insert(staranima2) 				menuGroup.staranima2 = staranima2 				]]				local function flip (event) 					local spacer = 180  					if event.phase =="ended" then  							if event.xStart < event.x and (event.x - event.xStart) >= spacer then 								if (_G.kwk_currentPage > 1) then  										disposeAudios() 										disposeTweens() 										director:changeScene( "page_" .. _G.kwk_currentPage-1 .. ".lua", "moveFromLeft" ) 								end 							elseif event.xStart > event.x and (event.xStart-event.x) >= spacer then  								if (_G.kwk_currentPage < _G.kwk_lastPage) then  										disposeAudios() 										disposeTweens() 										director:changeScene("page_" .. _G.kwk_currentPage+1 .. ".lua", "moveFromRight") 								end 							end 					end 				end 				BG:addEventListener("touch", flip) 		end 		drawScreen() 		function disposeAudios(event) 			audio.stop(2); audio.dispose(Choking_audio); Choking_audio = nil                     			audio.stop(3); audio.dispose(kwkBindex_audio); kwkBindex_audio = nil                     		end 		function disposeTweens(event) 			cancelAllTweens(); 			cancelAllTimers(); 			cancelAllTransitions(); 		end 		return menuGroup end 
