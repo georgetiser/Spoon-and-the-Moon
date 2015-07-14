@@ -3,6 +3,7 @@ application =
 { 
      content  = 
      { 
+          graphicsCompatibility = 1,
           width = 768, --768,
           height = 1024, --1024,
           fps = 60, 
