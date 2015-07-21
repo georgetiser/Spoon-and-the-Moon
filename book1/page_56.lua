@@ -72,7 +72,9 @@ crnrtxt = display.newText("" .. _G.kwk_currentPage .. "", crnrtxtoffset, 995, "A
 
 --PageNum End
 
-       local onkwkBindexTouch = function(event)           if event.phase=="ended" then  
+       local onkwkBindexTouch = function(event) 
+          if event.phase=="ended" then
+            soundeffects.PlayASound{filename = audioDir .. "indexflip.mp3"}  
              local myClosure_switch = function()                 disposeAudios()
                 disposeTweens() 
                 _G.kwk_currentPage = _G.kwk_menuPage
