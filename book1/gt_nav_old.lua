@@ -7,8 +7,15 @@ function InsertForwardButton(params)
 	local height = 87
 	local x = 475
 	local y = 975
+	local newPage = _G.kwk_currentPage + 1
 
-	local function PressForward(self, event)
+	if params.width or params.defaultX then width = params.width or params.defaultX end
+	if params.height or params.defaultY then height = params.height or params.defaultY end
+	if params.filename then imagefile = params.filename end
+	if params.x then x = params.x end
+	if params.y then y = params.y end
+
+	local function DoWhenPressed(self, event)
 		local userPress = event.phase
 		if userPress == "ended" then
 			local goOnward = function() 
@@ -25,12 +32,40 @@ function InsertForwardButton(params)
 		end--if
 	end--function
 
-	if params.width or params.defaultX then width = params.width or params.defaultX end
-	if params.height or params.defaultY then height = params.height or params.defaultY end
-	if params.filename then imagefile = params.filename end
-	if params.x then x = params.x end
-	if params.y then y = params.y end
+	button = display.newGroup()
+	buttonImage = display.newImageRect(imagefile, width, height)
+	button:insert(buttonImage, true)
+	button._onRelease = function()
+		print("Wow!")
+	end
+	button.isActive = true
+	button.isVisible = true
+	button.touch = PressForward
+	button:addEventListener("touch", button)
+	button._id = "NavigationForwardButton"
+	button.x = 475; button.y = 975; button.alpha = 1; button.oldAlpha = 1 
+end--function-insert-button
 
+function InsertNewButton(filename, width, height, x, y, goto, animation, debugMessage)
+	local function DoWhenPressed(self, event)
+		local userPress = event.phase
+		if userPress == "ended" then
+			local goOnward = function() 
+				cancelAllSounds()
+				cancelAllTweens()
+				cancelAllTimers()
+				cancelAllTransitions()
+				if _G.kwk_ShowDebugOutput then
+					print("Go Forward!")
+				if _G.kwk_currentPage == newPage then print("Going Nowhere!") end
+				end
+				_G.kwk_currentPage = newPage
+				director:changeScene( "page_" .. _G.kwk_currentPage, "moveFromRight" ) 
+			end
+			timerStash.navTimer = nil;
+			timerStash.navTimer = timer.performWithDelay(0, goOnward, 1)
+		end--if
+	end--function
 	button = display.newGroup()
 	buttonImage = display.newImageRect(imagefile, width, height)
 	button:insert(buttonImage, true)
@@ -57,7 +92,7 @@ function DisplayDevelopmentVersion()
 end--function display-development-version
 
 function InitializeDevelopmentVersionText()
-if not _G.kwk_DebugBuildVersion then _G.kwk_DebugBuildVersion = "-------------" end
+if not _G.kwk_DebugBuildVersion then _G.kwk_DebugBuildVersion = "---------------" end
   _G.kwk_BuildDate = string.sub(_G.kwk_DebugBuildVersion, 4, 5) .. "/" .. string.sub(_G.kwk_DebugBuildVersion, 7, 8) .. "/20" .. string.sub(_G.kwk_DebugBuildVersion, 1, 2)
   _G.kwk_DebugText1_x = 0
   _G.kwk_DebugText1_y = -50

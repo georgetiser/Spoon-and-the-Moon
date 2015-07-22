@@ -1,30 +1,45 @@
-
+-- Coded by George Tiser 2015.
+-- 
 module(..., package.seeall)
 
-function InsertForwardButton(params)
-	local imagefile
-	imagefile = params.filename or params.defaultSrc or 'Nope'
-	print(imagefile)
-end--function-insert-button
+--[[ Readme
+This function takes care of some basic error handling.
 
--- navigation.PlayASound{filename = audioDir .. "indexflip.mp3"} 
+Usage:
+In main.lua, add the following dependency:
+-- soundeffects = require("gt_sound")
+
+You can then play sound effects with
+-- soundeffects.PlayASound{filename = "XYZ", channel=12} 
+
+Specifying the channel is optional.
+If you specify the audio directory, PlayASound take care of the concatenation.
+
+Example use:
+soundeffects.PlayASound{filename = audioDir .. "indexflip.mp3"} 
+]]--end-readme
+
 function PlayASound(params)
-	-- PARAMETERS filename, channel
-	if _G.kwk_ShowDebugOutput then print("Playing a sound!") end
-	local AudioToUse, ChannelToUse
+	-- PARAMETERS filename, channel, audioDir
+	if params.audioDir then params.filename = params.audioDir .. params.filename end
+	local AudioToUse, ChannelToUse, debugStatement
+	debugStatement = "Sound:"
 	if params.filename and type(params.filename) == "string" then
-		if _G.kwk_ShowDebugOutput then print("File name: " .. params.filename) end
+		debugStatement = debugStatement .. " File[" .. params.filename .."]"
 		AudioToUse = audio.loadSound(params.filename)
-		if not AudioToUse then print("Audio didn't load. Wrong filename? Abandon ship!"); return; end
+		if not AudioToUse then
+			debugStatement = debugStatement .. " Failed to load. Abandon ship!"
+			print(debugStatement)
+			return
+		end
 	else
-		if _G.kwk_ShowDebugOutput then print("The 'filename' was not given. Abandon ship!") end
+		debugStatement = debugStatement .. "Missing filename."
 		return
-	end
+	end--if-filename
 	if params.channel and type(params.channel) == "number" then
 		if _G.kwk_ShowDebugOutput then print(" using channel " .. params.channel) end
 		ChannelToUse = params.channel
 	else
-		if _G.kwk_ShowDebugOutput then print(" channel not given, defaulting to 13.") end
 		ChannelToUse = 13
 	end
 
@@ -81,10 +96,10 @@ function InsertForwardButton(params)
 		end--if-touch-ended
 	end--function-button-touch
 	kwkBforward = ui.newButton{ 
-		defaultSrc= imgDir .. filename, 
+		defaultSrc= imageDir .. filename, 
 		defaultX = 110, 
 		defaultY = 87, 
-		overSrc= imgDir .. filename, 
+		overSrc= imageDir .. filename, 
 		overX = 110,
 		overY = 87, 
 		onRelease=onkwkBforwardTouch, 
