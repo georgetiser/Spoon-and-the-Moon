@@ -20,44 +20,51 @@ soundeffects.PlayASound{filename = audioDir .. "indexflip.mp3"}
 ]]--end-readme
 
 function PlayASound(params)
+	local audioFile, audioToUse, channelToUse, debugStatement
+	if _G.kwk_ShowDebugOutput then print("Play a sound") end
 	-- PARAMETERS filename, channel, audioDir
-	if params.audioDir then params.filename = params.audioDir .. params.filename end
-	local AudioToUse, ChannelToUse, debugStatement
+	if params.audioDir then
+		audioFile = params.audioDir .. params.filename
+	elseif string.find(params.filename, audioDir) then
+		audioFile = params.filename
+	else
+		audioFile = audioDir .. params.filename
+	end
 	debugStatement = "Sound:"
-	if params.filename and type(params.filename) == "string" then
+	if audioFile and type(audioFile) == "string" then
 		debugStatement = debugStatement .. " File[" .. params.filename .."]"
-		AudioToUse = audio.loadSound(params.filename)
-		if not AudioToUse then
+		audioToUse = audio.loadSound(audioFile)
+		if not audioToUse then
 			debugStatement = debugStatement .. " Failed to load. Abandon ship!"
 			print(debugStatement)
 			return
 		end
 	else
-		debugStatement = debugStatement .. "Missing filename."
+		debugStatement = debugStatement .. " Missing filename."
 		return
 	end--if-filename
 	if params.channel and type(params.channel) == "number" then
-		if _G.kwk_ShowDebugOutput then print(" using channel " .. params.channel) end
-		ChannelToUse = params.channel
+		if _G.kwk_ShowDebugOutput then print(" on channel " .. params.channel) end
+		channelToUse = params.channel
 	else
-		ChannelToUse = 13
+		channelToUse = 13
 	end
 
-	local isChannelPlaying = audio.isChannelPlaying(ChannelToUse) 
+	local isChannelPlaying = audio.isChannelPlaying(channelToUse) 
 	if isChannelPlaying then 
 		if _G.kwk_ShowDebugOutput then print("It's already playing.") end
-		audio.stop(ChannelToUse)
-		audio.play( AudioToUse, {channel=ChannelToUse} )
+		audio.stop(channelToUse)
+		audio.play( audioToUse, {channel=channelToUse} )
 	else 
 		if _G.kwk_ShowDebugOutput then print("It's not playing yet. Starting...") end
-		audio.play( AudioToUse, {channel=ChannelToUse} ) 
+		audio.play( audioToUse, {channel=channelToUse} ) 
 	end--if
 end--function
 
-function EndAllSounds()
+function StopAllSounds()
 	local i
 	for i = 1, 32, 1 do
-		isChannelPlaying = audio.isChannelPlaying(ChannelToUse) 
+		isChannelPlaying = audio.isChannelPlaying(channelToUse) 
 		if isChannelPlaying then audio.stop(i) end
 	end--for-loop
 end--function end-all-sounds
