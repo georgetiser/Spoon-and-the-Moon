@@ -127,8 +127,9 @@ end
 function newButton( params )
 	local button, defaultSrc , defaultX , defaultY , overSrc , overX , overY , size, font, textColor, offset
 	
+	button = display.newGroup()
+
 	if params.defaultSrc then
-		button = display.newGroup()
 		default = display.newImageRect ( params.defaultSrc , params.defaultX , params.defaultY )
 		button:insert( default, true )
 	end
