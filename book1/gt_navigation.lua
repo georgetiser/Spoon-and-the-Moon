@@ -81,7 +81,10 @@ function InsertNavigation(params)
 			local pageCornerParams
 			pageCornerParams = initializeArray(defaultNavigation.defaultPageCornerButton)
 			if params.customizePageCornerButton then --load customizations
-				for k,v in pairs(params.customizePageCornerButton) do pageCornerParams[k] = v end
+				for k,v in pairs(params.customizePageCornerButton) do
+					print(k .. " ... " .. v)
+					pageCornerParams[k] = v
+				end
 			end
 			local pageCornerButton
 			pageCornerButton = InsertAButton{
@@ -91,7 +94,7 @@ function InsertNavigation(params)
 				height = pageCornerParams.height,
 				x = pageCornerParams.x,
 				y = pageCornerParams.y,
-				destinationPage = pageCornerParams.destinationPage or _G.kwk_pageCornerPage,
+				destinationPage = pageCornerParams.destinationPage or _G.kwk_menuPage,
 				transitionEffect = pageCornerParams.transitionEffect or "moveFromLeft",
 				interstitial = pageCornerParams.interstitial or nil,
 				touchSound = pageCornerParams.touchSound or nil,
