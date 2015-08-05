@@ -38,8 +38,6 @@
 -- 
 -- Sample code is MIT licensed, see http://developer.anscamobile.com/code/license
 -- Copyright (C) 2010 ANSCA Inc. All Rights Reserved.
-
-
 module(..., package.seeall)
 
 -----------------
@@ -119,8 +117,6 @@ local function newButtonHandler( self, event )
 
 	return result
 end
-
-
 ---------------
 -- Button class
 

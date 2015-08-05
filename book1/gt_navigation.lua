@@ -1,7 +1,7 @@
 
 module(..., package.seeall)
 
--- Some major work on this
+-- Some major work on this remains to be done.
 
 function InsertNavigation(params)
 	--Recognized parameters:
@@ -18,7 +18,7 @@ function InsertNavigation(params)
 		end
 		InsertAButton{
 			id = backParams.id,
-			imagefile = backParams.imagefile,
+			imageFile = backParams.imageFile,
 			width = backParams.width,
 			height = backParams.height,
 			x = backParams.x,
@@ -34,22 +34,14 @@ function InsertNavigation(params)
 	if _G.kwk_currentPage < _G.kwk_lastPage and not params.noForwardButton then
 		local forwardParams
 		forwardParams = initializeArray(defaultNavigation.defaultForwardButton)
-		if params.customizeForwardButton then --load customizations
+		if params.customizeForwardButton then
 			for k,v in pairs(params.customizeForwardButton) do forwardParams[k] = v end
 		end
-		InsertAButton{
-			id = forwardParams.id,
-			imagefile = forwardParams.imagefile,
-			width = forwardParams.width,
-			height = forwardParams.height,
-			x = forwardParams.x,
-			y = forwardParams.y,
-			destinationPage = forwardParams.destinationPage or _G.kwk_currentPage + 1,
-			transitionEffect = forwardParams.transitionEffect or "moveFromLeft",
-			interstitial = forwardParams.interstitial,
-			touchSound = forwardParams.touchSound,
-			customization = params.customizeForwardButton
-		}
+		forwardParams.customization = params.customizeForwardButton
+		--destination must be set manually
+		--(because the current page number varies)
+		forwardParams.destinationPage = _G.kwk_currentPage + 1
+		InsertAButton(forwardParams)
 	end--forward-button
 
 	if not params.noMenuButton then
@@ -60,7 +52,8 @@ function InsertNavigation(params)
 		end--if
 		InsertAButton{
 			id = menuParams.id,
-			imagefile = menuParams.imagefile,
+			imageFile = menuParams.imageFile,
+			alpha = menuParams.alpha,
 			width = menuParams.width,
 			height = menuParams.height,
 			x = menuParams.x,
@@ -82,14 +75,15 @@ function InsertNavigation(params)
 			pageCornerParams = initializeArray(defaultNavigation.defaultPageCornerButton)
 			if params.customizePageCornerButton then --load customizations
 				for k,v in pairs(params.customizePageCornerButton) do
-					print(k .. " ... " .. v)
+					statusreport.debugPrint(k .. " ... " .. v)
 					pageCornerParams[k] = v
 				end
 			end
 			local pageCornerButton
 			pageCornerButton = InsertAButton{
 				id = pageCornerParams.id,
-				imagefile = pageCornerParams.imagefile,
+				imageFile = pageCornerParams.imageFile,
+				alpha = pageCornerParams.alpha,
 				width = pageCornerParams.width,
 				height = pageCornerParams.height,
 				x = pageCornerParams.x,
@@ -109,7 +103,7 @@ function InsertNavigation(params)
 			if params.customizePageNumberText then --load customizations
 				for k,v in pairs(params.customizePageNumberText) do
 					pageNumberTextParams[k] = v
-					print("Custom: " .. k .. " = " .. v)
+					statusreport.debugPrint("Custom: " .. k .. " = " .. v)
 				end--pairs
 			end--if-custom-options
 			pageNumberTextParams.x = pageNumberTextParams.x - (pageNumberTextParams.xOffset * string.len(_G.kwk_currentPage))
@@ -125,13 +119,13 @@ function InsertAButton(params)
 	local height = 100
 	local x = 100
 	local y = 100
-	local imagefile = imageDir .. "blankbutton.png"
+	local imageFile = imageDir .. "blankbutton.png"
 	local destinationPage = _G.kwk_firstPage
 	local transitionEffect = "fade"
 	local id = "DefaultButtonID"
 	if params.width then width = params.width end
 	if params.height then height = params.height end
-	if params.imagefile then imagefile = params.imagefile end
+	if params.imageFile then imageFile = params.imageFile end
 	if params.x then x = params.x end
 	if params.y then y = params.y end
 	if params.destinationPage then destinationPage = params.destinationPage end
@@ -160,7 +154,7 @@ function InsertAButton(params)
 		end--if-press-ended
 	end--function-when-pressed
 	button = display.newGroup()
-	buttonImage = display.newImageRect(imagefile, width, height)
+	buttonImage = display.newImageRect(imageFile, width, height)
 	button:insert(buttonImage, true)
 	button.isActive = true
 	button.isVisible = true
@@ -227,3 +221,7 @@ function initializeArray(defaulttable)
 	end--if
 	return newtable
 end--function
+
+function addObject(params)
+	statusreport.debugPrint("ya")
+end
