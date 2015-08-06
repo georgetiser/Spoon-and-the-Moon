@@ -331,7 +331,7 @@ local rebuildGroup = function( target )
 				local handler, message = pcall( prevScreen.clean )
 				--
 				if not handler then
-					showError( "Failed to clean object '" .. prevScene .. "' - Please verify the localGroup.clean() function.", message )
+					--showError( "Failed to clean object '" .. prevScene .. "' - Please verify the localGroup.clean() function.", message )
 					return false
 				end
 			
@@ -368,7 +368,7 @@ local rebuildGroup = function( target )
 				local handler, message = pcall( currScreen.clean )
 				--
 				if not handler then
-					showError( "Failed to clean object '" .. currScene .. "' - Please verify the localGroup.clean() function.", message )
+					--showError( "Failed to clean object '" .. currScene .. "' - Please verify the localGroup.clean() function.", message )
 					return false
 				end
 			
@@ -405,7 +405,7 @@ local rebuildGroup = function( target )
 				local handler, message = pcall( nextScreen.clean )
 				--
 				if not handler then
-					showError( "Failed to clean object '" .. nextScene .. "' - Please verify the localGroup.clean() function.", message )
+					--showError( "Failed to clean object '" .. nextScene .. "' - Please verify the localGroup.clean() function.", message )
 					return false
 				end
 			
@@ -442,7 +442,7 @@ local rebuildGroup = function( target )
 				local handler, message = pcall( popupScreen.clean )
 				--
 				if not handler then
-					showError( "Failed to clean object '" .. popupScene .. "' - Please verify the localGroup.clean() function.", message )
+					--showError( "Failed to clean object '" .. popupScene .. "' - Please verify the localGroup.clean() function.", message )
 					return false
 				end
 			
@@ -493,7 +493,7 @@ local initVars = function( target )
 				local handler, message = pcall( prevScreen.initVars )
 				--
 				if not handler then
-					showError( "Failed to initiate variables of object '" .. prevScene .. "' - Please verify the localGroup.initVars() function.", message )
+					--showError( "Failed to initiate variables of object '" .. prevScene .. "' - Please verify the localGroup.initVars() function.", message )
 					return false
 				end
 			
@@ -517,7 +517,7 @@ local initVars = function( target )
 				local handler, message = pcall( currScreen.initVars )
 				--
 				if not handler then
-					showError( "Failed to initiate variables of object '" .. currScene .. "' - Please verify the localGroup.initVars() function.", message )
+					--showError( "Failed to initiate variables of object '" .. currScene .. "' - Please verify the localGroup.initVars() function.", message )
 					return false
 				end
 			
@@ -542,7 +542,7 @@ local initVars = function( target )
 				local handler, message = pcall( nextScreen.initVars )
 				--
 				if not handler then
-					showError( "Failed to initiate variables of object '" .. nextScene .. "' - Please verify the localGroup.initVars() function.", message )
+					--showError( "Failed to initiate variables of object '" .. nextScene .. "' - Please verify the localGroup.initVars() function.", message )
 					return false
 				end
 			
@@ -567,7 +567,7 @@ local initVars = function( target )
 				local handler, message = pcall( popupScreen.initVars )
 				--
 				if not handler then
-					showError( "Failed to initiate variables of object '" .. popupScene .. "' - Please verify the localGroup.initVars() function.", message )
+					--showError( "Failed to initiate variables of object '" .. popupScene .. "' - Please verify the localGroup.initVars() function.", message )
 					return false
 				end
 				
@@ -610,7 +610,7 @@ local unloadScene = function( moduleName )
 				local handler, message = pcall( package.loaded[ moduleName ].clean )
 				--
 				if not handler then
-					showError( "Failed to clean module '" .. moduleName .. "' - Please verify the clean() function.", message )
+					--showError( "Failed to clean module '" .. moduleName .. "' - Please verify the clean() function.", message )
 					return false
 				end
 				
