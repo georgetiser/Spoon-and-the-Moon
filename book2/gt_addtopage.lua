@@ -75,7 +75,7 @@ function bookNavigation(params)
 			if params.customizePageNumberText then --load customizations
 				for k,v in pairs(params.customizePageNumberText) do
 					pageNumberTextParams[k] = v
-					print("Custom: " .. k .. " = " .. v)
+--debugPrint("Custom: " .. k .. " = " .. v)
 				end--pairs
 			end--if-custom-options
 			pageNumberTextParams.x = pageNumberTextParams.x - (pageNumberTextParams.xOffset * string.len(_G.kwk_currentPage))
@@ -96,10 +96,10 @@ end--function-create-navigation
 function newObject(obj)
 
 	function obj:wtfIsGoingOn()
-		print(" ")
-		print("new object")
+--debugPrint(" ")
+--debugPrint("new object")
 		for k, v in pairs(self) do
-			print("k " .. k .. " type " .. type(v) .. " value " .. v)
+--debugPrint("k " .. k .. " type " .. type(v) .. " value " .. v)
 		end
 	end--wtf
 
@@ -151,7 +151,7 @@ function newObject(obj)
 		local doWhenPressed = function(self, event)
 			local userPress = event.phase
 			if userPress == "ended" then
-				print("pressed")
+--debugPrint("pressed")
 				if obj.customEffect and type(obj.customEffect) == "function" then customEffect() end
 				if obj.touchSound then soundeffects.PlayASound{filename = obj.touchSound} end
 				if obj.interstitial then media.playVideo(obj.interstitial, system.ResourceDirectory, false ) end
@@ -184,8 +184,7 @@ function newObject(obj)
 	newObj.x = obj.x
 	newObj.y = obj.y
 	newObj.alpha = obj.alpha
-
-	print(errMsg)
+--debugPrint(errMsg)
 	return newObj
 end
 
@@ -208,7 +207,7 @@ end]]
 
 --[[
 	if obj.categoryIncludes("button") then
-		print("derp")
+--debugPrint("derp")
 	end
 	local destinationPage = _G.kwk_menuPage
 	local transitionEffect = "fade"

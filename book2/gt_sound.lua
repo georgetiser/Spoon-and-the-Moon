@@ -36,7 +36,7 @@ function PlayASound(params)
 		audioToUse = audio.loadSound(audioFile)
 		if not audioToUse then
 			debugStatement = debugStatement .. " Failed to load. Abandon ship!"
-			print(debugStatement)
+--debugPrint(debugStatement)
 			return
 		end
 	else
@@ -72,29 +72,29 @@ end--function end-all-sounds
 --[[
 function InsertForwardButton(params)
 	if _G.kwk_ShowDebugOutput then
-		print("Inserting a Forward button.")
+--debugPrint("Inserting a Forward button.")
 		if params then print("Data!") else print("No data!") end
 		for x in pairs(params) do print("Yay " .. x) end
 		print.
 		for i,x in ipairs(params) do print("Wow " .. tostring(x)) end
-		print(params[_M])
-		print("The _M is " .. a.M)
-		print("The _NAME is " .. a._NAME)
-		print("The _PACKAGE is " .. a._PACKAGE)
-		print("The navigation is " .. navigation)
+--debugPrint(params[_M])
+--debugPrint("The _M is " .. a.M)
+--debugPrint("The _NAME is " .. a._NAME)
+--debugPrint("The _PACKAGE is " .. a._PACKAGE)
+--debugPrint("The navigation is " .. navigation)
 --		table.print(buttondata)
 		if filename then print("File!") else print("No file!") end
 		if params.filename then print("File!") else print("No file!") end
 		if a[filename] then print("File!") else print("No file!") end
 		if a["filename"] then print("File!") else print("No file!") end
 	end
-	print("Got past it."/)
+--debugPrint("Got past it."/)
 	local onkwkBforwardTouch = function(event) 
 		if event.phase=="ended" then 
 			local myClosure_switch = function() 
 				--disposeAudios()
 				--disposeTweens() 
-				print("GoForward!")
+--debugPrint("GoForward!")
 				_G.kwk_currentPage = _G.kwk_currentPage + 1
 				director:changeScene( "page_" .. _G.kwk_currentPage, "moveFromRight" ) 
 			end--function-move-to-next-page

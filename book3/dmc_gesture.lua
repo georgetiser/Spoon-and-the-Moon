@@ -81,7 +81,7 @@ function vector_given_x_y( x, y )
 end
 
 function direction_given_angle( angle, limit )
-	--print( "direction_given_angle" .. angle .. ":" .. limit )
+--debugPrint( "direction_given_angle" .. angle .. ":" .. limit )
 
 	local angle_abs = math.abs( angle )
 	local angle_sign = ( angle < 0 ) and -1 or 1
@@ -113,7 +113,7 @@ function direction_given_angle( angle, limit )
 end
 
 function swipeTouchHandler( event )
-	--print( "swipeTouchHandler", event )
+--debugPrint( "swipeTouchHandler", event )
 
 	local obj = event.target
 	local dmc = obj.__dmc.gesture
@@ -268,7 +268,7 @@ Gesture.activate = function( obj, params )
 
 	-- sanity check
 	if obj.__dmc and obj.__dmc.gesture then
-		print( "WARNING: only initialize Gesture once !" )
+--debugPrint( "WARNING: only initialize Gesture once !" )
 		return nil
 	end
 

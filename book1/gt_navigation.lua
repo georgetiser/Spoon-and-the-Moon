@@ -75,7 +75,7 @@ function InsertNavigation(params)
 			pageCornerParams = initializeArray(defaultNavigation.defaultPageCornerButton)
 			if params.customizePageCornerButton then --load customizations
 				for k,v in pairs(params.customizePageCornerButton) do
-					statusreport.debugPrint(k .. " ... " .. v)
+--debugPrint(k .. " ... " .. v)
 					pageCornerParams[k] = v
 				end
 			end
@@ -103,10 +103,11 @@ function InsertNavigation(params)
 			if params.customizePageNumberText then --load customizations
 				for k,v in pairs(params.customizePageNumberText) do
 					pageNumberTextParams[k] = v
-					statusreport.debugPrint("Custom: " .. k .. " = " .. v)
+--debugPrint("Custom: " .. k .. " = " .. v)
 				end--pairs
 			end--if-custom-options
-			pageNumberTextParams.x = pageNumberTextParams.x - (pageNumberTextParams.xOffset * string.len(_G.kwk_currentPage))
+			pageNumberTextParams.x = pageNumberTextParams.x - 1 - (pageNumberTextParams.xOffset * string.len(_G.kwk_currentPage))
+			if _G.kwk_currentPage < 200 then pageNumberTextParams.x = pageNumberTextParams.x + 4 end
 			PageNumberText = display.newText("" .. _G.kwk_currentPage .. "", pageNumberTextParams.x, pageNumberTextParams.y, pageNumberTextParams.fontname, pageNumberTextParams.fontsize)
 			PageNumberText:setFillColor(1,1,1)
 			PageCornerGroup:insert(PageNumberText)
@@ -139,6 +140,7 @@ function InsertAButton(params)
 				cancelAllTweens()
 				cancelAllTimers()
 				cancelAllTransitions()
+				if params.customEffect then params.customEffect() end
 				if params.touchSound then
 					soundeffects.PlayASound{filename = params.touchSound}					
 				end
@@ -146,8 +148,8 @@ function InsertAButton(params)
 					verifyVideoExists = io.open(params.interstitial, "r")
 					media.playVideo(params.interstitial, system.ResourceDirectory, false )
 				end
-				_G.kwk_currentPage = destinationPage
-				director:changeScene( "page_" .. _G.kwk_currentPage, transitionEffect ) 
+				if destinationPage > _G.kwk_lastPage then _G.kwk_currentPage = destinationPage; destinationPage = _G.kwk_lastPage else _G.kwk_currentPage = destinationPage end
+				director:changeScene( "page_" .. destinationPage, transitionEffect ) 
 			end--onward-function
 			timerStash.navTimer = nil;
 			timerStash.navTimer = timer.performWithDelay(0, goOnward, 1)
@@ -189,7 +191,7 @@ if not _G.kwk_DebugBuildVersion then _G.kwk_DebugBuildVersion = "-------------" 
 	_G.kwk_DebugText1_cr = 255
 	_G.kwk_DebugText1_cg = 255
 	_G.kwk_DebugText1_cb = 0
-	_G.kwk_DebugText1_t = "DEVELOPMENT VERSION " .. string.sub(_G.kwk_DebugBuildVersion, string.len(_G.kwk_DebugBuildVersion))
+	_G.kwk_DebugText1_t = "DEVELOPMENT VERSION " .. string.sub(_G.kwk_DebugBuildVersion, string.len(_G.kwk_DebugBuildVersion) - 1)
 	_G.kwk_DebugText2_x = 20
 	_G.kwk_DebugText2_y = 1025
 	_G.kwk_DebugText2_w = 600
@@ -223,5 +225,5 @@ function initializeArray(defaulttable)
 end--function
 
 function addObject(params)
-	statusreport.debugPrint("ya")
+--debugPrint("ya")
 end

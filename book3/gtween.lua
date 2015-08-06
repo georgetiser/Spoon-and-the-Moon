@@ -332,7 +332,7 @@ function new(target, duration, values, props)
 	--crumbGroup:insert(target)
 
 
---print(tween.breadAnchor)	
+--debugPrint(tween.breadAnchor)	
 		
 	function tween:play()
 		if self.isPlaying then

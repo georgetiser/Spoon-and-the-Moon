@@ -188,12 +188,12 @@ end
 local showError = function( errorMessage, debugMessage )
 	local message = "Director ERROR: " .. tostring( errorMessage )
 	local function onComplete( event )
-		print()
-		print( "-----------------------" )
-		print( message )
-		print( "-----------------------" )
-		print( debugMessage )
-		print( "-----------------------" )
+--debugPrint()
+--debugPrint( "-----------------------" )
+--debugPrint( message )
+--debugPrint( "-----------------------" )
+--debugPrint( debugMessage )
+--debugPrint( "-----------------------" )
 		error()
 	end
 	--

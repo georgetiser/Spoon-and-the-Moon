@@ -73,7 +73,7 @@ end
 
 
 function Triggr:reset()
-	--print( "Triggr:reset" )
+--debugPrint( "Triggr:reset" )
 
 	self.quad = 0  -- 1,2,3,4 
 	self.quad_cnt = 0 -- +/- num
@@ -115,8 +115,8 @@ function Triggr:set( x, y )
 
 	self.angle_sum = self.ang_delta_base + self.ang_delta_sum + self.ang_delta
 
-	--print( new_quad, Triggr.direction, Triggr.quad_cnt )
-	--print( new_quad, Triggr.quad_cnt, ( Triggr.ang_delta_base + Triggr.ang_delta + Triggr.ang_delta_sum ), Triggr.ang_delta, Triggr.ang_delta_sum )
+--debugPrint( new_quad, Triggr.direction, Triggr.quad_cnt )
+--debugPrint( new_quad, Triggr.quad_cnt, ( Triggr.ang_delta_base + Triggr.ang_delta + Triggr.ang_delta_sum ), Triggr.ang_delta, Triggr.ang_delta_sum )
 
 end
 
@@ -124,7 +124,7 @@ end
 --== Private Methods ==--
 
 function Triggr:_getQuad( x, y )
-	--print( "Triggr:_getQuad", x, y )
+--debugPrint( "Triggr:_getQuad", x, y )
 	local q, ang, refang
 
 	ang = math.deg( math.atan2( y, x ) )
@@ -172,7 +172,7 @@ function Triggr:_quad_I( new_quad, refang )
 			end
 		end
 
-		--print( "I > II : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
+--debugPrint( "I > II : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
 
 		self.quad = new_quad
 		self.stateFunc = self._quad_II
@@ -197,7 +197,7 @@ function Triggr:_quad_I( new_quad, refang )
 			end
 		end
 
-		--print( "I > IV : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
+--debugPrint( "I > IV : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
 
 		self.quad = new_quad
 		self.stateFunc = self._quad_IV
@@ -274,7 +274,7 @@ function Triggr:_quad_II( new_quad, refang )
 			end
 		end
 
-		--print( "II > III : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
+--debugPrint( "II > III : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
 
 		self.quad = new_quad
 		self.stateFunc = self._quad_III
@@ -301,7 +301,7 @@ function Triggr:_quad_II( new_quad, refang )
 			end
 		end
 
-		--print( "II > I : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
+--debugPrint( "II > I : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
 
 		self.quad = new_quad
 		self.stateFunc = self._quad_I
@@ -372,7 +372,7 @@ function Triggr:_quad_III( new_quad, refang )
 			end
 		end
 
-		--print( "III > IV : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
+--debugPrint( "III > IV : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
 
 		self.quad = new_quad
 		self.stateFunc = self._quad_IV
@@ -397,7 +397,7 @@ function Triggr:_quad_III( new_quad, refang )
 			end
 		end
 
-		--print( "III > II : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
+--debugPrint( "III > II : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
 
 		self.quad = new_quad
 		self.stateFunc = self._quad_II
@@ -471,7 +471,7 @@ function Triggr:_quad_IV( new_quad, refang )
 			end
 		end
 
-		--print( "IV > I : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
+--debugPrint( "IV > I : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
 
 		self.quad = new_quad
 		self.stateFunc = self._quad_I
@@ -497,7 +497,7 @@ function Triggr:_quad_IV( new_quad, refang )
 			end
 		end
 
-		--print( "IV > III : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
+--debugPrint( "IV > III : ", math.abs( self.quad_cnt ), self.ang_delta_base, self.ang_delta_sum )
 
 		self.quad = new_quad
 		self.stateFunc = self._quad_III
@@ -582,7 +582,7 @@ end
 
 -- angle in degrees
 function y_given_x_angle( x, angle )
-	--print( "y_given_x_angle" )
+--debugPrint( "y_given_x_angle" )
 
 	-- use negative angle to compensate for difference
 	-- in trig angles and Corona angles
@@ -591,7 +591,7 @@ end
 
 -- angle in degrees
 function x_given_y_angle( y, angle )
-	--print( "y_given_x_angle" )
+--debugPrint( "y_given_x_angle" )
 
 	-- use negative angle to compensate for difference
 	-- in trig angles and Corona angles
@@ -722,7 +722,7 @@ function createConstrainMoveFunc( dmc, params )
 				end
 
 	else
-		print( "ERROR: you can't do that" )
+--debugPrint( "ERROR: you can't do that" )
 	end
 
 	return f
@@ -829,10 +829,10 @@ end
 
 
 local function getSingleCalcFunc( obj )
-	--print( "getSingleCalcFunc" )
+--debugPrint( "getSingleCalcFunc" )
 
 	local dmc = obj.__dmc.multitouch
-	--print( "<<<<<<<<<< calculateDelta" )
+--debugPrint( "<<<<<<<<<< calculateDelta" )
 	local touches = dmc.touches
 	local touchStack = dmc.touchStack
 	local action
@@ -860,9 +860,9 @@ local function getSingleCalcFunc( obj )
 end
 
 local function getMultiCalcFunc( obj )
-	--print( "getMultiCalcFunc" )
+--debugPrint( "getMultiCalcFunc" )
 	local dmc = obj.__dmc.multitouch
-	--print( "<<<<<<<<<< calculateDelta" )
+--debugPrint( "<<<<<<<<<< calculateDelta" )
 	local touches = dmc.touches
 	local touchStack = dmc.touchStack
 
@@ -888,7 +888,7 @@ end
 
 
 local function calculateBase( obj )
-	--print( "======== calculateBase" )
+--debugPrint( "======== calculateBase" )
 	local dmc = obj.__dmc.multitouch
 	local touches = dmc.touches
 	local touchStack = dmc.touchStack
@@ -909,7 +909,7 @@ local function calculateBase( obj )
 		-- update touch center point
 		cO = debugObjs["touchCenter"]
 	 	cO.x = dmc.midpointTouch.x ; cO.y = dmc.midpointTouch.y
-		--print( dmc.midpointTouch.x, dmc.midpointTouch.y )
+--debugPrint( dmc.midpointTouch.x, dmc.midpointTouch.y )
 	end
 
 	-- save current properties
@@ -927,13 +927,13 @@ local function calculateBase( obj )
 
 	--dmc.distanceTouch = math.sqrt( dx*dx + dy*dy )
 	dmc.distanceTouch = math.sqrt( dx*dx + dy*dy )
-	--print( dx, dy )
+--debugPrint( dx, dy )
 
 	-- calculate direction
 	dmc.lastRotation = 0
 	dmc.lastDirection = nil
-	--print( 'distance ', dx, dy, dmc.distanceTouch )
-	--print( "angle ", dmc.angleOrig )
+--debugPrint( 'distance ', dx, dy, dmc.distanceTouch )
+--debugPrint( "angle ", dmc.angleOrig )
 
 
 	-- center point calculations
@@ -941,20 +941,20 @@ local function calculateBase( obj )
 	dy = -( obj.y - dmc.midpointTouch.y )
 
 
-	--print( display.contentWidth, display.contentHeight )
-	--print( dmc.midpointTouch.x, obj.x )
+--debugPrint( display.contentWidth, display.contentHeight )
+--debugPrint( dmc.midpointTouch.x, obj.x )
 	dmc.distanceCenter = math.sqrt( dx*dx + dy*dy )
 	dmc.angleCenter = math.deg( math.atan2( dy, dx ) )
-	--print( "dco: ", dmc.distanceCenter )
-	--print( "aco: ", dmc.angleCenter ) -- trig angle
-	--print( "obj: ", dmc.scaleOrig, obj.x, obj.y )
+--debugPrint( "dco: ", dmc.distanceCenter )
+--debugPrint( "aco: ", dmc.angleCenter ) -- trig angle
+--debugPrint( "obj: ", dmc.scaleOrig, obj.x, obj.y )
 
 
 	x = math.cos( math.rad( dmc.angleCenter ) ) * dmc.distanceCenter + dmc.midpointTouch.x
 	y = math.sin( math.rad( -dmc.angleCenter ) ) * dmc.distanceCenter + dmc.midpointTouch.y
 
-	--print( "objx.y: ", obj.x, obj.y )
-	--print( "x.y: ", x, y )
+--debugPrint( "objx.y: ", obj.x, obj.y )
+--debugPrint( "x.y: ", x, y )
 
 	if DEBUG then
 		cO = debugObjs["calcCenter"]
@@ -982,7 +982,7 @@ end
 
 local function calculateDelta( obj )
 	local dmc = obj.__dmc.multitouch
-	--print( "<<<<<<<<<< calculateDelta" )
+--debugPrint( "<<<<<<<<<< calculateDelta" )
 	local touches = dmc.touches
 	local touchStack = dmc.touchStack
 
@@ -1000,7 +1000,7 @@ local function calculateDelta( obj )
 		-- update touch center point
 		cO = debugObjs["touchCenter"]
 	 	cO.x = dmc.midpointTouch.x ; cO.y = dmc.midpointTouch.y
-		--print( dmc.midpointTouch.x, dmc.midpointTouch.y )
+--debugPrint( dmc.midpointTouch.x, dmc.midpointTouch.y )
 	end
 
 	dx = touch.x - midpoint.x
@@ -1017,7 +1017,7 @@ local function calculateDelta( obj )
 		d = math.sqrt( dx*dx + dy*dy )
 		scale = d / dmc.distanceTouch
 		scaled = scale * dmc.scaleOrig
-		--print( 'distance ', scale, dx, dy, dmc.distanceTouch, d )
+--debugPrint( 'distance ', scale, dx, dy, dmc.distanceTouch, d )
 	end
 
 
@@ -1025,7 +1025,7 @@ local function calculateDelta( obj )
 	dmc.triggr:set( dx, dy )
 	local angleDiff = -dmc.triggr.angle_sum -- negative is clockwise
 	local rotation = -( dmc.angleOrig + angleDiff )
-	--print( "angle: ", angleDiff, dmc.triggr.angle_sum )
+--debugPrint( "angle: ", angleDiff, dmc.triggr.angle_sum )
 
 	-- calculate direction
 	local rotationDiff = dmc.lastRotation - angleDiff
@@ -1040,7 +1040,7 @@ local function calculateDelta( obj )
 	-- calculate new position
 	x = dmc.midpointTouch.x + math.cos( math.rad( -( dmc.angleCenter + angleDiff ) ) ) * ( dmc.distanceCenter * scale )
 	y = dmc.midpointTouch.y + math.sin( math.rad( -( dmc.angleCenter + angleDiff ) ) ) * ( dmc.distanceCenter * scale )
-	--print( "x.y: ", x, y )
+--debugPrint( "x.y: ", x, y )
 
 	local xDiff = x - dmc.xOrig
 	local yDiff = y - dmc.yOrig
@@ -1124,7 +1124,7 @@ end
 
 
 function multitouchTouchHandler( event )
-	--print( "multitouchTouchHandler", event.id )
+--debugPrint( "multitouchTouchHandler", event.id )
 
 	local f, xPos, yPos, cO, calcs, beginPoints
 
@@ -1157,8 +1157,8 @@ function multitouchTouchHandler( event )
 		TouchMgr:setFocus( event.target, event.id )
 		table.insert( touchStack, 1, event.id )
 
-		--Utils.print( event )
-		--print( #touchStack )
+--debugPrint( event )
+--debugPrint( #touchStack )
 
 		-- create function to pre-process touch gestures
 		if ( dmc.isSingleActive and #touchStack == 1 ) then
@@ -1227,7 +1227,7 @@ function multitouchTouchHandler( event )
 				end
 
 				if DEBUG then
-					--print( calcs.angleDelta )
+--debugPrint( calcs.angleDelta )
 					cO = debugObjs["objCenter"]
 					cO.x = obj.x ; cO.y = obj.y
 				end
@@ -1339,7 +1339,7 @@ MultiTouch.MULTITOUCH_EVENT = MULTITOUCH_EVENT
 -- returns table with keys: 'single', 'multi', 'func'
 --
 function processParameters( dmc, action, touchtype, params )
-	--print( "processParameters", action )
+--debugPrint( "processParameters", action )
 
 	local config = {}
 
@@ -1352,7 +1352,7 @@ function processParameters( dmc, action, touchtype, params )
 	elseif action == 'rotate' then
 		config.func = createConstrainRotateFunc( params )
 	else
-		print( "WARNING: unknown action: " .. action )
+--debugPrint( "WARNING: unknown action: " .. action )
 		return nil
 	end
 
@@ -1461,7 +1461,7 @@ MultiTouch.activate = function( obj, action, touchtype, params )
 	if configIsOK then
 			dmc.actions[ action ] = config
 	else
-		print( "\nERROR: '" .. action .. "' is not compatible with the current config: \n" )
+--debugPrint( "\nERROR: '" .. action .. "' is not compatible with the current config: \n" )
 	end
 
 

@@ -21,7 +21,7 @@ soundeffects.PlayASound{filename = audioDir .. "indexflip.mp3"}
 
 function PlayASound(params)
 	local audioFile, audioToUse, channelToUse, debugStatement
-	--if _G.kwk_ShowDebugOutput then statusreport.debugPrint("Play a sound") end
+	--if _G.kwk_ShowDebugOutput then print("Play a sound") end
 	-- PARAMETERS filename, channel, audioDir
 	if params.audioDir then
 		audioFile = params.audioDir .. params.filename
@@ -36,7 +36,7 @@ function PlayASound(params)
 		audioToUse = audio.loadSound(audioFile)
 		if not audioToUse then
 			debugStatement = debugStatement .. " Failed to load. Abandon ship!"
-			statusreport.debugPrint(debugStatement)
+--debugPrint(debugStatement)
 			return
 		end
 	else
@@ -44,7 +44,7 @@ function PlayASound(params)
 		return
 	end--if-filename
 	if params.channel and type(params.channel) == "number" then
-		if _G.kwk_ShowDebugOutput then statusreport.debugPrint(" on channel " .. params.channel) end
+		if _G.kwk_ShowDebugOutput then print(" on channel " .. params.channel) end
 		channelToUse = params.channel
 	else
 		channelToUse = 13
@@ -52,11 +52,11 @@ function PlayASound(params)
 
 	local isChannelPlaying = audio.isChannelPlaying(channelToUse) 
 	if isChannelPlaying then 
-		if _G.kwk_ShowDebugOutput then statusreport.debugPrint("It's already playing.") end
+		if _G.kwk_ShowDebugOutput then print("It's already playing.") end
 		audio.stop(channelToUse)
 		audio.play( audioToUse, {channel=channelToUse} )
 	else 
-		--if _G.kwk_ShowDebugOutput then statusreport.debugPrint("It's not playing yet. Starting...") end
+		--if _G.kwk_ShowDebugOutput then print("It's not playing yet. Starting...") end
 		audio.play( audioToUse, {channel=channelToUse} ) 
 	end--if
 end--function
@@ -72,29 +72,29 @@ end--function end-all-sounds
 --[[
 function InsertForwardButton(params)
 	if _G.kwk_ShowDebugOutput then
-		statusreport.debugPrint("Inserting a Forward button.")
-		if params then statusreport.debugPrint("Data!") else statusreport.debugPrint("No data!") end
-		for x in pairs(params) do statusreport.debugPrint("Yay " .. x) end
+--debugPrint("Inserting a Forward button.")
+		if params then print("Data!") else print("No data!") end
+		for x in pairs(params) do print("Yay " .. x) end
 		print.
-		for i,x in ipairs(params) do statusreport.debugPrint("Wow " .. tostring(x)) end
-		statusreport.debugPrint(params[_M])
-		statusreport.debugPrint("The _M is " .. a.M)
-		statusreport.debugPrint("The _NAME is " .. a._NAME)
-		statusreport.debugPrint("The _PACKAGE is " .. a._PACKAGE)
-		statusreport.debugPrint("The navigation is " .. navigation)
---		table.statusreport.debugPrint(buttondata)
-		if filename then statusreport.debugPrint("File!") else statusreport.debugPrint("No file!") end
-		if params.filename then statusreport.debugPrint("File!") else statusreport.debugPrint("No file!") end
-		if a[filename] then statusreport.debugPrint("File!") else statusreport.debugPrint("No file!") end
-		if a["filename"] then statusreport.debugPrint("File!") else statusreport.debugPrint("No file!") end
+		for i,x in ipairs(params) do print("Wow " .. tostring(x)) end
+--debugPrint(params[_M])
+--debugPrint("The _M is " .. a.M)
+--debugPrint("The _NAME is " .. a._NAME)
+--debugPrint("The _PACKAGE is " .. a._PACKAGE)
+--debugPrint("The navigation is " .. navigation)
+--		table.print(buttondata)
+		if filename then print("File!") else print("No file!") end
+		if params.filename then print("File!") else print("No file!") end
+		if a[filename] then print("File!") else print("No file!") end
+		if a["filename"] then print("File!") else print("No file!") end
 	end
-	statusreport.debugPrint("Got past it."/)
+--debugPrint("Got past it."/)
 	local onkwkBforwardTouch = function(event) 
 		if event.phase=="ended" then 
 			local myClosure_switch = function() 
 				--disposeAudios()
 				--disposeTweens() 
-				statusreport.debugPrint("GoForward!")
+--debugPrint("GoForward!")
 				_G.kwk_currentPage = _G.kwk_currentPage + 1
 				director:changeScene( "page_" .. _G.kwk_currentPage, "moveFromRight" ) 
 			end--function-move-to-next-page
