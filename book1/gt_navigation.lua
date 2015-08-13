@@ -135,23 +135,24 @@ function InsertAButton(params)
 	local function DoWhenPressed(self, event)
 		local userPress = event.phase
 		if userPress == "ended" then
-			local transitionPage = function() 
-				disposeDetritus()
-				if destinationPage > _G.kwk_lastPage then _G.kwk_currentPage = destinationPage; destinationPage = _G.kwk_lastPage else _G.kwk_currentPage = destinationPage end
+			local goOnward = function() 
+				cancelAllSounds()
+				cancelAllTweens()
+				cancelAllTimers()
+				cancelAllTransitions()
 				if params.customEffect then params.customEffect() end
 				if params.touchSound then
-					soundeffects.PlayASound{filename = params.touchSound, channelToUse = 17}					
+					soundeffects.PlayASound{filename = params.touchSound}					
 				end
 				if params.interstitial then
-					_G.kwk_currentPage = destinationPage
-					_G.kwk_vidToPlay = params.interstitial
-					director:changeScene("blankpage", "fade" ) 
-				else
-					director:changeScene( "page_" .. destinationPage, transitionEffect ) 
+					verifyVideoExists = io.open(params.interstitial, "r")
+					media.playVideo(params.interstitial, system.ResourceDirectory, false )
 				end
+				if destinationPage > _G.kwk_lastPage then _G.kwk_currentPage = destinationPage; destinationPage = _G.kwk_lastPage else _G.kwk_currentPage = destinationPage end
+				director:changeScene( "page_" .. destinationPage, transitionEffect ) 
 			end--onward-function
 			timerStash.navTimer = nil;
-			timerStash.navTimer = timer.performWithDelay(0, transitionPage, 1)
+			timerStash.navTimer = timer.performWithDelay(0, goOnward, 1)
 		end--if-press-ended
 	end--function-when-pressed
 	button = display.newGroup()

@@ -129,10 +129,10 @@ function newButton( params )
 	local button, defaultSrc , defaultX , defaultY , overSrc , overX , overY , size, font, textColor, offset, givenID
 	if params.id then givenID = params.id end
 
-	if _G.kwk_ShowDebugOutput then
-		print(params.id)
-		if params.id then print "New button with ID." else print "New button. No ID." end
-	end
+	--if _G.kwk_ShowDebugOutput then
+	--	print(params.id)
+	--	if params.id then print "New button with ID." else print "New button. No ID." end
+	--end
 	
 	if params.defaultX then
 		defaultX = params.defaultX
