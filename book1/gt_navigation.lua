@@ -136,20 +136,16 @@ function InsertAButton(params)
 		local userPress = event.phase
 		if userPress == "ended" then
 			local transitionPage = function() 
-				cancelAllSounds()
-				cancelAllTweens()
-				cancelAllTimers()
-				cancelAllTransitions()
+				disposeDetritus()
 				if destinationPage > _G.kwk_lastPage then _G.kwk_currentPage = destinationPage; destinationPage = _G.kwk_lastPage else _G.kwk_currentPage = destinationPage end
 				if params.customEffect then params.customEffect() end
 				if params.touchSound then
-					soundeffects.PlayASound{filename = params.touchSound}					
+					soundeffects.PlayASound{filename = params.touchSound, channelToUse = 17}					
 				end
 				if params.interstitial then
 					_G.kwk_currentPage = destinationPage
+					_G.kwk_vidToPlay = params.interstitial
 					director:changeScene("blankpage", "fade" ) 
-					verifyVideoExists = io.open(params.interstitial, "r")
-					media.playVideo(params.interstitial, system.ResourceDirectory, false)
 				else
 					director:changeScene( "page_" .. destinationPage, transitionEffect ) 
 				end

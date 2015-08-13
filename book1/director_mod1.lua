@@ -331,7 +331,11 @@ local rebuildGroup = function( target )
 				local handler, message = pcall( prevScreen.clean )
 				--
 				if not handler then
-					showError( "Failed to clean object '" .. prevScene .. "' - Please verify the localGroup.clean() function.", message )
+					local errorDescription = "E:"
+					errorDescription = errorDescription .. "Failed to clean object "
+					errorDescription = errorDescription .. prevScene
+					errorDescription = errorDescription .. " - Please verify the localGroup.clean() function."
+					showError( errorDescription, message )
 					return false
 				end
 			
@@ -368,7 +372,11 @@ local rebuildGroup = function( target )
 				local handler, message = pcall( currScreen.clean )
 				--
 				if not handler then
-					showError( "Failed to clean object '" .. currScene .. "' - Please verify the localGroup.clean() function.", message )
+					local errorDescription = "E:"
+					errorDescription = errorDescription .. "Failed to clean object "
+					errorDescription = errorDescription .. currScene
+					errorDescription = errorDescription .. " - Please verify the localGroup.clean() function."
+					showError( errorDescription, message )
 					return false
 				end
 			
@@ -405,7 +413,11 @@ local rebuildGroup = function( target )
 				local handler, message = pcall( nextScreen.clean )
 				--
 				if not handler then
-					showError( "Failed to clean object '" .. nextScene .. "' - Please verify the localGroup.clean() function.", message )
+					local errorDescription = "E:"
+					errorDescription = errorDescription .. "Failed to clean object "
+					errorDescription = errorDescription .. nextScene
+					errorDescription = errorDescription .. " - Please verify the localGroup.clean() function."
+					showError( errorDescription, message )
 					return false
 				end
 			
@@ -442,7 +454,11 @@ local rebuildGroup = function( target )
 				local handler, message = pcall( popupScreen.clean )
 				--
 				if not handler then
-					showError( "Failed to clean object '" .. popupScene .. "' - Please verify the localGroup.clean() function.", message )
+					local errorDescription = "E:"
+					errorDescription = errorDescription .. "Failed to clean object "
+					errorDescription = errorDescription .. popupScene
+					errorDescription = errorDescription .. " - Please verify the localGroup.clean() function."
+					showError( errorDescription, message )
 					return false
 				end
 			
@@ -493,7 +509,11 @@ local initVars = function( target )
 				local handler, message = pcall( prevScreen.initVars )
 				--
 				if not handler then
-					showError( "Failed to initiate variables of object '" .. prevScene .. "' - Please verify the localGroup.initVars() function.", message )
+					local errorDescription = "E:"
+					errorDescription = errorDescription .. "Failed to initiate variables of object "
+					errorDescription = errorDescription .. prevScene
+					errorDescription = errorDescription .. " - Please verify the localGroup.initVars() function."
+					showError( errorDescription, message )
 					return false
 				end
 			
@@ -517,7 +537,11 @@ local initVars = function( target )
 				local handler, message = pcall( currScreen.initVars )
 				--
 				if not handler then
-					showError( "Failed to initiate variables of object '" .. currScene .. "' - Please verify the localGroup.initVars() function.", message )
+					local errorDescription = "E:"
+					errorDescription = errorDescription .. "Failed to initiate variables of object "
+					errorDescription = errorDescription .. currScene
+					errorDescription = errorDescription .. " - Please verify the localGroup.initVars() function."
+					showError( errorDescription, message )
 					return false
 				end
 			
@@ -542,7 +566,11 @@ local initVars = function( target )
 				local handler, message = pcall( nextScreen.initVars )
 				--
 				if not handler then
-					showError( "Failed to initiate variables of object '" .. nextScene .. "' - Please verify the localGroup.initVars() function.", message )
+					local errorDescription = "E:"
+					errorDescription = errorDescription .. "Failed to initiate variables of object "
+					errorDescription = errorDescription .. nextScene
+					errorDescription = errorDescription .. " - Please verify the localGroup.initVars() function."
+					showError( errorDescription, message )
 					return false
 				end
 			
@@ -567,7 +595,11 @@ local initVars = function( target )
 				local handler, message = pcall( popupScreen.initVars )
 				--
 				if not handler then
-					showError( "Failed to initiate variables of object '" .. popupScene .. "' - Please verify the localGroup.initVars() function.", message )
+					local errorDescription = "E:"
+					errorDescription = errorDescription .. "Failed to initiate variables of object "
+					errorDescription = errorDescription .. popupScene
+					errorDescription = errorDescription .. " - Please verify the localGroup.initVars() function."
+					showError( errorDescription, message )
 					return false
 				end
 				
@@ -610,7 +642,11 @@ local unloadScene = function( moduleName )
 				local handler, message = pcall( package.loaded[ moduleName ].clean )
 				--
 				if not handler then
-					showError( "Failed to clean module '" .. moduleName .. "' - Please verify the clean() function.", message )
+					local errorDescription = "E:"
+					errorDescription = errorDescription .. "Failed to clean module "
+					errorDescription = errorDescription .. moduleName
+					errorDescription = errorDescription .. " - Please verify the clean() function."
+					showError( errorDescription, message )
 					return false
 				end
 				
@@ -656,7 +692,11 @@ local loadScene = function( moduleName, target, params )
 	if not package.loaded[ moduleName ] then
 		local handler, message = pcall( require, moduleName )
 		if not handler then
-			showError( "Failed to load module '" .. moduleName .. "' - Please check if the file exists and it is correct.", message )
+			local errorDescription = "E:"
+			errorDescription = errorDescription .. "Failed to load module "
+			errorDescription = errorDescription .. moduleName
+			errorDescription = errorDescription .. " - Please check if the file exists and it is correct."
+			showError( errorDescription, message )
 			return false
 		end
 	end
@@ -706,7 +746,11 @@ local loadScene = function( moduleName, target, params )
 		handler, prevScreen = pcall( functionName, params )
 		--
 		if not handler then
-			showError( "Failed to execute new( params ) function on '" .. tostring( moduleName ) .. "'.", prevScreen )
+			local errorDescription = "E:"
+			errorDescription = errorDescription .. "Failed to execute new( params ) function on "
+			errorDescription = errorDescription .. tostring( moduleName )
+			errorDescription = errorDescription .. "."
+			showError( errorDescription, prevScreen )
 			return false
 		end
 		
@@ -765,7 +809,11 @@ local loadScene = function( moduleName, target, params )
 		handler, currScreen = pcall( functionName, params )
 		--
 		if not handler then
-			showError( "Failed to execute new( params ) function on '" .. tostring( moduleName ) .. "'.", currScreen )
+			local errorDescription = "E:"
+			errorDescription = errorDescription .. "Failed to execute new( params ) function on "
+			errorDescription = errorDescription .. tostring( moduleName )
+			errorDescription = errorDescription .. "."
+			showError( errorDescription, currScreen )
 			return false
 		end
 		
@@ -824,7 +872,11 @@ local loadScene = function( moduleName, target, params )
 		handler, nextScreen = pcall( functionName, params )
 		--
 		if not handler then
-			showError( "Failed to execute new( params ) function on '" .. tostring( moduleName ) .. "'.", nextScreen )
+			local errorDescription = "E:"
+			errorDescription = errorDescription .. "Failed to execute new( params ) function on "
+			errorDescription = errorDescription .. tostring( moduleName )
+			errorDescription = errorDescription .. "."
+			showError( errorDescription, nextScreen )
 			return false
 		end
 		
@@ -1375,7 +1427,11 @@ function director:openPopUp( params, newPopUpScene, onClose )
 	local handler, message = pcall( require, newPopUpScene )
 	--
 	if not handler then
-		showError( "Failed to load module '" .. newPopUpScene .. "' - Please check if the file exists and it is correct.", message )
+		local errorDescription = "E:"
+		errorDescription = errorDescription .. "Failed to load module "
+		errorDescription = errorDescription .. newPopUpScene
+		errorDescription = errorDescription .. " - Please check if the file exists and it is correct."
+		showError( errorDescription, message )
 		return false
 	end
 	
@@ -1397,7 +1453,11 @@ function director:openPopUp( params, newPopUpScene, onClose )
 	handler, popupScreen = pcall( functionName, params )
 	--
 	if not handler then
-		showError( "Failed to execute news( params ) function on '" .. tostring( moduleName ) .. "'.", popupScreen )
+		local errorDescription = "E:"
+		errorDescription = errorDescription .. "Failed to execute news( params ) function on "
+		errorDescription = errorDescription .. tostring( moduleName )
+		errorDescription = errorDescription .. "."
+		showError( errorDescription, popupScreen )
 		return false
 	end
 	
@@ -1645,7 +1705,11 @@ function director:newBookPages( pageList, fade )
 				local handler, message = pcall( currScreen.start )
 				--
 				if not handler then
-					showError( "Failed to start page of object '" .. currScene .. "' - Please verify the localGroup.start() function.", message )
+					local errorDescription = "E:"
+					errorDescription = errorDescription .. "Failed to start page of object "
+					errorDescription = errorDescription .. currScene
+					errorDescription = errorDescription .. " - Please verify the localGroup.start() function."
+					showError( errorDescription, message )
 					return false
 				end
 			
@@ -1823,7 +1887,11 @@ function director:changeBookPage( target )
 						local handler, message = pcall( currScreen.start )
 						--
 						if not handler then
-							showError( "Failed to start page of object '" .. currScene .. "' - Please verify the localGroup.start() function.", message )
+							local errorDescription = "E:"
+							errorDescription = errorDescription .. "Failed to start page of object "
+							errorDescription = errorDescription .. currScene
+							errorDescription = errorDescription .. " - Please verify the localGroup.start() function."
+							showError( errorDescription, message )
 							return false
 						end
 					
@@ -1912,7 +1980,11 @@ function director:changeBookPage( target )
 						local handler, message = pcall( currScreen.start )
 						--
 						if not handler then
-							showError( "Failed to start page of object '" .. currScene .. "' - Please verify the localGroup.start() function.", message )
+							local errorDescription = "E:"
+							errorDescription = errorDescription .. "Failed to start page of object "
+							errorDescription = errorDescription .. currScene
+							errorDescription = errorDescription .. " - Please verify the localGroup.start() function."
+							showError( errorDescription, message )
 							return false
 						end
 					
@@ -2142,7 +2214,11 @@ function director:goToPage( params, target, fade )
 				local handler, message = pcall( currScreen.start )
 				--
 				if not handler then
-					showError( "Failed to start page of object '" .. currScene .. "' - Please verify the localGroup.start() function.", message )
+					local errorDescription = "E:"
+					errorDescription = errorDescription .. "Failed to start page of object "
+					errorDescription = errorDescription .. currScene
+					errorDescription = errorDescription .. " - Please verify the localGroup.start() function."
+					showError( errorDescription, message )
 					return false
 				end
 			

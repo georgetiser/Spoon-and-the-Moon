@@ -20,12 +20,11 @@ soundeffects.PlayASound{filename = audioDir .. "indexflip.mp3"}
 ]]--end-readme
 
 function PlayASound(params)
-	local audioFile, audioToUse, channelToUse, debugStatement
-	--if _G.kwk_ShowDebugOutput then print("Play a sound") end
 	-- PARAMETERS filename, channel, audioDir
-	if params.audioDir then
-		audioFile = params.audioDir .. params.filename
-	elseif string.find(params.filename, audioDir) then
+	local audioFile, audioToUse, channelToUse, debugStatement
+	if not params.filename and params.audioFile then params.filename = params.audioFile end
+	if not params.audioDir and audioDir then params.audioDir = audioDir end
+	if string.find(params.filename, audioDir) then
 		audioFile = params.filename
 	else
 		audioFile = audioDir .. params.filename
@@ -36,7 +35,6 @@ function PlayASound(params)
 		audioToUse = audio.loadSound(audioFile)
 		if not audioToUse then
 			debugStatement = debugStatement .. " Failed to load. Abandon ship!"
---debugPrint(debugStatement)
 			return
 		end
 	else
@@ -60,59 +58,3 @@ function PlayASound(params)
 		audio.play( audioToUse, {channel=channelToUse} ) 
 	end--if
 end--function
-
-function StopAllSounds()
-	local i
-	for i = 1, 32, 1 do
-		isChannelPlaying = audio.isChannelPlaying(channelToUse) 
-		if isChannelPlaying then audio.stop(i) end
-	end--for-loop
-end--function end-all-sounds
-
---[[
-function InsertForwardButton(params)
-	if _G.kwk_ShowDebugOutput then
---debugPrint("Inserting a Forward button.")
-		if params then print("Data!") else print("No data!") end
-		for x in pairs(params) do print("Yay " .. x) end
-		print.
-		for i,x in ipairs(params) do print("Wow " .. tostring(x)) end
---debugPrint(params[_M])
---debugPrint("The _M is " .. a.M)
---debugPrint("The _NAME is " .. a._NAME)
---debugPrint("The _PACKAGE is " .. a._PACKAGE)
---debugPrint("The navigation is " .. navigation)
---		table.print(buttondata)
-		if filename then print("File!") else print("No file!") end
-		if params.filename then print("File!") else print("No file!") end
-		if a[filename] then print("File!") else print("No file!") end
-		if a["filename"] then print("File!") else print("No file!") end
-	end
---debugPrint("Got past it."/)
-	local onkwkBforwardTouch = function(event) 
-		if event.phase=="ended" then 
-			local myClosure_switch = function() 
-				--disposeAudios()
-				--disposeTweens() 
---debugPrint("GoForward!")
-				_G.kwk_currentPage = _G.kwk_currentPage + 1
-				director:changeScene( "page_" .. _G.kwk_currentPage, "moveFromRight" ) 
-			end--function-move-to-next-page
-			timerStash.tempTimer = nil
-			timerStash.tempTimer = timer.performWithDelay(0, myClosure_switch, 1) 
-		end--if-touch-ended
-	end--function-button-touch
-	kwkBforward = ui.newButton{ 
-		defaultSrc= imageDir .. filename, 
-		defaultX = 110, 
-		defaultY = 87, 
-		overSrc= imageDir .. filename, 
-		overX = 110,
-		overY = 87, 
-		onRelease=onkwkBforwardTouch, 
-		id="kwkBforwardButton" 
-	} 
-	kwkBforward.x = 476; kwkBforward.y = 975; kwkBforward.alpha = 1; kwkBforward.oldAlpha = 1 
-	return kwkBforward
-end--function-forward-button
-]]

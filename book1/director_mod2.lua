@@ -49,8 +49,7 @@ module( ..., package.seeall )
  - 25-AUG-2011 - Ricardo Rauber - Bug fixes;
 
  -- ]]
-
-print( "-----------------------------------------------" )
+--debugPrint( "-----------------------------------------------" )
 
 --====================================================================--
 -- TOGGLE DEBUG
@@ -188,12 +187,12 @@ end
 local showError = function( errorMessage, debugMessage )
 	local message = "Director ERROR: " .. tostring( errorMessage )
 	local function onComplete( event )
-		print()
-		print( "-----------------------" )
-		print( message )
-		print( "-----------------------" )
-		print( debugMessage )
-		print( "-----------------------" )
+--debugPrint()
+--debugPrint( "-----------------------" )
+--debugPrint( message )
+--debugPrint( "-----------------------" )
+--debugPrint( debugMessage )
+--debugPrint( "-----------------------" )
 		error()
 	end
 	--
@@ -331,7 +330,7 @@ local rebuildGroup = function( target )
 				local handler, message = pcall( prevScreen.clean )
 				--
 				if not handler then
-					showError( "Failed to clean object '" .. prevScene .. "' - Please verify the localGroup.clean() function.", message )
+-- err
 					return false
 				end
 			
@@ -368,7 +367,7 @@ local rebuildGroup = function( target )
 				local handler, message = pcall( currScreen.clean )
 				--
 				if not handler then
-					showError( "Failed to clean object '" .. currScene .. "' - Please verify the localGroup.clean() function.", message )
+-- err
 					return false
 				end
 			
@@ -405,7 +404,7 @@ local rebuildGroup = function( target )
 				local handler, message = pcall( nextScreen.clean )
 				--
 				if not handler then
-					showError( "Failed to clean object '" .. nextScene .. "' - Please verify the localGroup.clean() function.", message )
+-- err
 					return false
 				end
 			
@@ -442,7 +441,7 @@ local rebuildGroup = function( target )
 				local handler, message = pcall( popupScreen.clean )
 				--
 				if not handler then
-					showError( "Failed to clean object '" .. popupScene .. "' - Please verify the localGroup.clean() function.", message )
+-- err
 					return false
 				end
 			
@@ -493,7 +492,7 @@ local initVars = function( target )
 				local handler, message = pcall( prevScreen.initVars )
 				--
 				if not handler then
-					showError( "Failed to initiate variables of object '" .. prevScene .. "' - Please verify the localGroup.initVars() function.", message )
+-- err
 					return false
 				end
 			
@@ -517,7 +516,7 @@ local initVars = function( target )
 				local handler, message = pcall( currScreen.initVars )
 				--
 				if not handler then
-					showError( "Failed to initiate variables of object '" .. currScene .. "' - Please verify the localGroup.initVars() function.", message )
+-- err
 					return false
 				end
 			
@@ -542,7 +541,7 @@ local initVars = function( target )
 				local handler, message = pcall( nextScreen.initVars )
 				--
 				if not handler then
-					showError( "Failed to initiate variables of object '" .. nextScene .. "' - Please verify the localGroup.initVars() function.", message )
+-- err
 					return false
 				end
 			
@@ -567,7 +566,7 @@ local initVars = function( target )
 				local handler, message = pcall( popupScreen.initVars )
 				--
 				if not handler then
-					showError( "Failed to initiate variables of object '" .. popupScene .. "' - Please verify the localGroup.initVars() function.", message )
+-- err
 					return false
 				end
 				
@@ -610,7 +609,7 @@ local unloadScene = function( moduleName )
 				local handler, message = pcall( package.loaded[ moduleName ].clean )
 				--
 				if not handler then
-					showError( "Failed to clean module '" .. moduleName .. "' - Please verify the clean() function.", message )
+-- err
 					return false
 				end
 				
@@ -645,7 +644,7 @@ local loadScene = function( moduleName, target, params )
 	------------------
 	
 	if type( moduleName ) ~= "string" then
-		showError( "Module name must be a string. moduleName = " .. tostring( moduleName ) )
+-- err
 		return false
 	end
 	
@@ -656,7 +655,7 @@ local loadScene = function( moduleName, target, params )
 	if not package.loaded[ moduleName ] then
 		local handler, message = pcall( require, moduleName )
 		if not handler then
-			showError( "Failed to load module '" .. moduleName .. "' - Please check if the file exists and it is correct.", message )
+-- err
 			return false
 		end
 	end
@@ -666,7 +665,7 @@ local loadScene = function( moduleName, target, params )
 	------------------
 	
 	if not package.loaded[ moduleName ].new then
-		showError( "Module '" .. tostring( moduleName ) .. "' must have a new() function." )
+-- err
 		return false
 	end
 	--
@@ -706,7 +705,7 @@ local loadScene = function( moduleName, target, params )
 		handler, prevScreen = pcall( functionName, params )
 		--
 		if not handler then
-			showError( "Failed to execute new( params ) function on '" .. tostring( moduleName ) .. "'.", prevScreen )
+-- err
 			return false
 		end
 		
@@ -715,7 +714,7 @@ local loadScene = function( moduleName, target, params )
 		------------------
 		
 		if not isDisplayObject( currScreen ) then
-			showError( "Module " .. moduleName .. " must return a display.newGroup()." )
+-- err
 			return false
 		end
 		
@@ -765,7 +764,7 @@ local loadScene = function( moduleName, target, params )
 		handler, currScreen = pcall( functionName, params )
 		--
 		if not handler then
-			showError( "Failed to execute new( params ) function on '" .. tostring( moduleName ) .. "'.", currScreen )
+-- err
 			return false
 		end
 		
@@ -774,7 +773,7 @@ local loadScene = function( moduleName, target, params )
 		------------------
 		
 		if not isDisplayObject( currScreen ) then
-			showError( "Module " .. moduleName .. " must return a display.newGroup()." )
+-- err
 			return false
 		end
 		
@@ -824,7 +823,7 @@ local loadScene = function( moduleName, target, params )
 		handler, nextScreen = pcall( functionName, params )
 		--
 		if not handler then
-			showError( "Failed to execute new( params ) function on '" .. tostring( moduleName ) .. "'.", nextScreen )
+-- err
 			return false
 		end
 		
@@ -833,7 +832,7 @@ local loadScene = function( moduleName, target, params )
 		------------------
 		
 		if not isDisplayObject( nextScreen ) then
-			showError( "Module " .. moduleName .. " must return a display.newGroup()." )
+-- err
 			return false
 		end
 		
@@ -1002,7 +1001,7 @@ function director:changeScene( params,
 	end
 	--
 	if type( nextLoadScene ) ~= "string" then
-		showError( "The scene name must be a string. scene = " .. tostring( nextLoadScene ) )
+-- err
 		return false
 	end
 	
@@ -1011,7 +1010,7 @@ function director:changeScene( params,
 	------------------
 	
 	if popupScene ~= "main" then
-		showError( "Could not change scene inside a popup." )
+-- err
 		return false
 	end
 	
@@ -1324,7 +1323,7 @@ function director:openPopUp( params, newPopUpScene, onClose )
 	end
 	--
 	if type( newPopUpScene ) ~= "string" then
-		showError( "Module name must be a string. moduleName = " .. tostring( newPopUpScene ) )
+-- err
 		return false
 	end
 	--
@@ -1350,7 +1349,7 @@ function director:openPopUp( params, newPopUpScene, onClose )
 	------------------
 	
 	if popupScene ~= "main" then
-		showError( "Could not load more then 1 popup." )
+-- err
 		return false
 	end
 	
@@ -1375,7 +1374,7 @@ function director:openPopUp( params, newPopUpScene, onClose )
 	local handler, message = pcall( require, newPopUpScene )
 	--
 	if not handler then
-		showError( "Failed to load module '" .. newPopUpScene .. "' - Please check if the file exists and it is correct.", message )
+-- err
 		return false
 	end
 	
@@ -1384,7 +1383,7 @@ function director:openPopUp( params, newPopUpScene, onClose )
 	------------------
 	
 	if not package.loaded[ newPopUpScene ].new then
-		showError( "Module '" .. tostring( newPopUpScene ) .. "' must have a new() function." )
+-- err
 		return false
 	end
 	
@@ -1397,7 +1396,7 @@ function director:openPopUp( params, newPopUpScene, onClose )
 	handler, popupScreen = pcall( functionName, params )
 	--
 	if not handler then
-		showError( "Failed to execute news( params ) function on '" .. tostring( moduleName ) .. "'.", popupScreen )
+-- err
 		return false
 	end
 	
@@ -1406,7 +1405,7 @@ function director:openPopUp( params, newPopUpScene, onClose )
 	------------------
 	
 	if not isDisplayObject( currScreen ) then
-		showError( "Module " .. moduleName .. " must return a display.newGroup()." )
+-- err
 		return false
 	end
 	--
@@ -1645,7 +1644,7 @@ function director:newBookPages( pageList, fade )
 				local handler, message = pcall( currScreen.start )
 				--
 				if not handler then
-					showError( "Failed to start page of object '" .. currScene .. "' - Please verify the localGroup.start() function.", message )
+-- err
 					return false
 				end
 			
@@ -1823,7 +1822,7 @@ function director:changeBookPage( target )
 						local handler, message = pcall( currScreen.start )
 						--
 						if not handler then
-							showError( "Failed to start page of object '" .. currScene .. "' - Please verify the localGroup.start() function.", message )
+-- err
 							return false
 						end
 					
@@ -1912,7 +1911,7 @@ function director:changeBookPage( target )
 						local handler, message = pcall( currScreen.start )
 						--
 						if not handler then
-							showError( "Failed to start page of object '" .. currScene .. "' - Please verify the localGroup.start() function.", message )
+-- err
 							return false
 						end
 					
@@ -2010,12 +2009,12 @@ function director:goToPage( params, target, fade )
 	end
 	--
 	if type( target ) ~= "number" then
-		showError( "The page name must be a number. page = " .. tostring( target ) )
+-- err
 		return false
 	end
 	--
 	if target < 1 then
-		showError( "Cannot change to page lower then 1. page = " .. tostring( target ) )
+-- err
 		return false
 	end
 	
@@ -2142,7 +2141,7 @@ function director:goToPage( params, target, fade )
 				local handler, message = pcall( currScreen.start )
 				--
 				if not handler then
-					showError( "Failed to start page of object '" .. currScene .. "' - Please verify the localGroup.start() function.", message )
+-- err
 					return false
 				end
 			

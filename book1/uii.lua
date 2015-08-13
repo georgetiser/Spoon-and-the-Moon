@@ -38,6 +38,8 @@
 -- 
 -- Sample code is MIT licensed, see http://developer.anscamobile.com/code/license
 -- Copyright (C) 2010 ANSCA Inc. All Rights Reserved.
+
+
 module(..., package.seeall)
 
 -----------------
@@ -117,51 +119,24 @@ local function newButtonHandler( self, event )
 
 	return result
 end
+
+
 ---------------
 -- Button class
 
-function newButton( params )
-
-	local function printButtonError(givenvariablename)
-		print("The variable " .. givenvariablename .. " was not initialized. Set to default.")
-	end
-
-	local button, defaultSrc , defaultX , defaultY , overSrc , overX , overY , size, font, textColor, offset, givenID
-	if params.id then givenID = params.id end
-
-	if _G.kwk_ShowDebugOutput then
-		print(params.id)
-		if params.id then print "New button with ID." else print "New button. No ID." end
-	end
-	
-	if params.defaultX then
-		defaultX = params.defaultX
-	else
-		if _G.kwk_ShowDebugOutput then printButtonError("defaultX") end
-		defaultX = 100
-	end
-	
-	if params.defaultY then
-		defaultY = params.defaultY
-	else
-		if _G.kwk_ShowDebugOutput then printButtonError("defaultY") end
-		defaultY = 100
-	end
+function nuButton( params )
+	local button, defaultSrc , defaultX , defaultY , overSrc , overX , overY , size, font, textColor, offset
 	
 	if params.defaultSrc then
 		button = display.newGroup()
 		default = display.newImageRect ( params.defaultSrc , params.defaultX , params.defaultY )
 		button:insert( default, true )
-	else
-		printButtonError("defaultSrc")
 	end
 	
 	if params.overSrc then
 		over = display.newImageRect ( params.overSrc , params.overX , params.overY )
 		over.isVisible = false
 		button:insert( over, true )
-	else
-		printButtonError("overSrc")
 	end
 	
 	-- Public methods
@@ -190,7 +165,6 @@ function newButton( params )
 		if ( params.textColor ) then textColor=params.textColor else textColor={ 255, 255, 255, 255 } end
 		
 		size = size * 2
-
 		
 		-- Optional vertical correction for fonts with unusual baselines (I'm looking at you, Zapfino)
 		if ( params.offset and type(params.offset) == "number" ) then offset=params.offset else offset = 0 end
@@ -246,6 +220,7 @@ function newButton( params )
 	if (params.onEvent and ( type(params.onEvent) == "function" ) ) then
 		button._onEvent = params.onEvent
 	end
+	
 	-- set button to active (meaning, can be pushed)
 	button.isActive = true
 	
@@ -253,12 +228,12 @@ function newButton( params )
 	button.touch = newButtonHandler
 	button:addEventListener( "touch", button )
 
-	if params.defaultX then
-		button.x = params.defaultX
+	if params.x then
+		button.x = params.x
 	end
 	
-	if params.defaultY then
-		button.y = params.defaultY
+	if params.y then
+		button.y = params.y
 	end
 	
 	if params.id then
@@ -267,6 +242,7 @@ function newButton( params )
 
 	return button
 end
+
 
 --------------
 -- Label class
