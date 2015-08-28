@@ -12,19 +12,10 @@ module(..., package.seeall)
 		menuGroup.navigator = navigation.InsertNavigation{}
 
 
-       --local PageXCorner         local chpt2intropage         chpt2intropage = display.newImageRect(imageDir .. "p40_chpt2intropage.png", 768, 1024 );        chpt2intropage.x = 384; chpt2intropage.y = 512; chpt2intropage.alpha = 1; chpt2intropage.oldAlpha = 1        menuGroup:insert(chpt2intropage)        menuGroup.chpt2intropage = chpt2intropage 
+       --local PageXCorner         local BG         BG = display.newImageRect(imageDir .. "p40_BG.png", 768, 1024 );        BG.x = 384; BG.y = 512; BG.alpha = 1; BG.oldAlpha = 1        menuGroup:insert(BG)        menuGroup.BG = BG 
 --XPageXCornerX
 
 
---XpaperXcornerX
-
-
---ForwardFunction--ForwardUI--PageNum Begin
---PlaceholderForPageCorner
---PageNumPlace
---PageNum End
---PlaceholderIndex --PlaceholderFor       --BackPlace--PlaceholderFor              local function flip (event)           local spacer = 180            if event.phase =="ended" then               if event.xStart < event.x and (event.x - event.xStart) >= spacer then                 if (_G.kwk_currentPage > 1) then                      disposeAudios()
-                    disposeTweens() 
-                    director:changeScene( "page_" .. _G.kwk_currentPage-1 .. ".lua", "moveFromLeft" )                 end              elseif event.xStart > event.x and (event.xStart-event.x) >= spacer then                  if (_G.kwk_currentPage < _G.kwk_lastPage) then                      disposeAudios()
-                    disposeTweens() 
-                    director:changeScene("page_" .. _G.kwk_currentPage+1 .. ".lua", "moveFromRight")                 end              end           end        end        chpt2intropage:addEventListener("touch", flip)    end    drawScreen()    function disposeAudios(event)                     -- audio.stop(13); audio.dispose(kwkBindex_audio); kwkBindex_audio = nil                        end    function disposeTweens(event)       cancelAllTweens();       cancelAllTimers();       cancelAllTransitions();    end    return menuGroup end 
+--XpaperXcornerX
+	end
+   drawScreen()    function disposeAudios(event)                     -- audio.stop(13); audio.dispose(kwkBindex_audio); kwkBindex_audio = nil                        end    function disposeTweens(event)       cancelAllTweens();       cancelAllTimers();       cancelAllTransitions();    end    return menuGroup end 

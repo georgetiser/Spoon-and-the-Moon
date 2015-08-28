@@ -1,19 +1,21 @@
 -- Android config.lua 
+-- Updated license key, v2.00, 2015-08-27
 application = 
 { 
-     content  = 
-     { 
-          graphicsCompatibility = 1,
-          width = 768, --768,
-          height = 1024, --1024,
-          fps = 60, 
-          scale = "letterbox" -- options: letterbox, zoomEven, zoomStretch, none
-     }, 
-		 license =
-		 {
-			google =
-			{
-				key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAppmve4hroEqnbbDSo2tYrEp0dZcpRcpourC281dFhlLDRmeD2C8/crhK+xjw1MNuS7bhFjbFhA2RO8Fe6L5lsWjjMxH8LQRY9QB5HjRMabl7sytd8p7D0UTJHSg47zNySdlP7sE2oq4EBtuvasFtJvkl8we2+e6pY3u+d2FgUAJiZ15ZHlGFLFn7bi/74l6pRaTCMz3FolnJdiG2cWJZgfTDbQsxZ/H1753RRUVWJG7xP9sLv9fTQ+fLod0STh8nNWW/Askxqlr3mFULASqHtNJggL3vfns6axnmmxk/xAuTMya5dzu6MeyYjElSNF30GBFuYFz+jpnpJysyw79YYQIDAQAB"
-			}
-		 }
-} 
+	content  = 
+	{ 
+		graphicsCompatibility = 1,
+		width = 768, --768,
+		height = 1024, --1024,
+		fps = 60, 
+		scale = "letterbox" -- options: letterbox, zoomEven, zoomStretch, none
+	}, 
+	license =
+	{
+		google =
+		{
+			--Spoon and the Moon, Part II
+			key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAujBRXE8ZR0mHaUUfIhkTmbsnz/1snXXJlyMPBiE++TCHnWj0oe8KdxI+Iy7IBmCTxf3qffzTOXJ6940IXrR7MOgu/vB8D4KbJ49d6yQEurfQo91L6EfnXiLArLQ3BmueEMLqfXZk8MCjZ8w0xkowazoi35RCGvwsLJho474KXoCMRM2K4KRc6/zTsuxkmdEBm0EQY8gfLWSr0GEDtz7ZGx/4gDsvdE+DSE/ta/vAZe+8ZlEaAqI/4sCHkcZ3XJ5Ba3mBeddf9D0fulmDkS4bcap+4/xSuwo2hV5w6xb0M0S9/f7Ivv73QILnzNU0UR2Hi1Tab4DdYBxcY6Pcvp32uQIDAQAB"
+		}
+	}
+}

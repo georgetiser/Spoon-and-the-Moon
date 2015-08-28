@@ -12,16 +12,10 @@ module(..., package.seeall)
 		menuGroup.navigator = navigation.InsertNavigation{}
 
 
-       local cornber         local CH03PG2         CH03PG2 = display.newImageRect(imageDir .. "p48_ch03pg2.png", 768, 1024 );        CH03PG2.x = 384; CH03PG2.y = 512; CH03PG2.alpha = 1; CH03PG2.oldAlpha = 1        menuGroup:insert(CH03PG2)        menuGroup.CH03PG2 = CH03PG2        local oncornberTouch = function(event)           if event.phase=="ended" then              local myClosure_switch = function()                 disposeAudios()
-                disposeTweens() 
+       local cornber         local BG         BG = display.newImageRect(imageDir .. "p48_ch03pg2.png", 768, 1024 );        BG.x = 384; BG.y = 512; BG.alpha = 1; BG.oldAlpha = 1        menuGroup:insert(BG)        menuGroup.BG = BG        local oncornberTouch = function(event)           if event.phase=="ended" then              local myClosure_switch = function()
+
                 _G.kwk_currentPage = _G.kwk_menuPage
                 statusreport.debugPrint("GoToMenu!")
-                director:changeScene( "page_" .. _G.kwk_menuPage, "overFromTop" )            end             timerStash.tempTimer = nil             timerStash.tempTimer = timer.performWithDelay(0, myClosure_switch, 1)           end        end        cornber = ui.newButton{            defaultSrc= imageDir .."p48_cornber.png",            defaultX = 71,            defaultY = 78,            overSrc= imageDir .."p48_cornber.png",            overX = 71,            overY = 78,            onRelease=oncornberTouch,            id="cornberButton"        }        cornber.x = 732; cornber.y = 985; cornber.alpha = 1; cornber.oldAlpha = 1        menuGroup:insert(cornber)        menuGroup.cornber = cornber --ForwardFunction--ForwardUI--PageNum Begin
---PlaceholderForPageCorner
---PageNumPlace
---PageNum End
---PlaceholderIndex --PlaceholderFor       --BackPlace--PlaceholderFor              local function flip (event)           local spacer = 180            if event.phase =="ended" then               if event.xStart < event.x and (event.x - event.xStart) >= spacer then                 if (_G.kwk_currentPage > 1) then                      disposeAudios()
-                    disposeTweens() 
-                    director:changeScene( "page_" .. _G.kwk_currentPage-1 .. ".lua", "moveFromLeft" )                 end              elseif event.xStart > event.x and (event.xStart-event.x) >= spacer then                  if (_G.kwk_currentPage < _G.kwk_lastPage) then                      disposeAudios()
-                    disposeTweens() 
-                    director:changeScene("page_" .. _G.kwk_currentPage+1 .. ".lua", "moveFromRight")                 end              end           end        end        CH03PG2:addEventListener("touch", flip)    end    drawScreen()    function disposeAudios(event)                     -- audio.stop(13); audio.dispose(kwkBindex_audio); kwkBindex_audio = nil                        end    function disposeTweens(event)       cancelAllTweens();       cancelAllTimers();       cancelAllTransitions();    end    return menuGroup end 
+                director:changeScene( "page_" .. _G.kwk_menuPage, "overFromTop" )            end             timerStash.tempTimer = nil             timerStash.tempTimer = timer.performWithDelay(0, myClosure_switch, 1)           end        end        cornber = ui.newButton{            defaultSrc= imageDir .."p48_cornber.png",            defaultX = 71,            defaultY = 78,            overSrc= imageDir .."p48_cornber.png",            overX = 71,            overY = 78,            onRelease=oncornberTouch,            id="cornberButton"        }        cornber.x = 732; cornber.y = 985; cornber.alpha = 1; cornber.oldAlpha = 1        menuGroup:insert(cornber)        menuGroup.cornber = cornber
+	end
+   drawScreen()    function disposeAudios(event)                     -- audio.stop(13); audio.dispose(kwkBindex_audio); kwkBindex_audio = nil                        end    function disposeTweens(event)       cancelAllTweens();       cancelAllTimers();       cancelAllTransitions();    end    return menuGroup end 
